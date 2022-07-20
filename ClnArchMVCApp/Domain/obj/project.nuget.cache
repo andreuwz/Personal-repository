@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g3peJcYEDx2KeCaEZoBtyGOso8CqWP934fbMhIl7b8k3idZFUWsMq7MCiT63P4AXrhVjz9FOG3YfYk9br1RuQw==",
+  "dgSpecHash": "n5lnC5NJoC/YmSRAJqCiaRl9HPNp77qxMwTUruv0oUEIRDYNZwdrG3QP75S5CK9G1si3yul9IW1hTFYXoZLB2g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

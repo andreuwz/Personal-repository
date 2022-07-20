@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Domain\\Domain.csproj": {}
+    "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Application\\Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Domain\\Domain.csproj": {
+    "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Domain\\Domain.csproj",
-        "projectName": "Domain",
-        "projectPath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Application\\Application.csproj",
+        "projectName": "Application",
+        "projectPath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\end17\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Domain\\obj\\",
+        "outputPath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\end17\\AppData\\Roaming\\NuGet\\NuGet.Config",

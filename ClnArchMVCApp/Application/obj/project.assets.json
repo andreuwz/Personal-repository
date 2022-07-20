@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Common\\Common.csproj",
-      "projectName": "Common",
-      "projectPath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Common\\Common.csproj",
+      "projectUniqueName": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Application\\Application.csproj",
+      "projectName": "Application",
+      "projectPath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Application\\Application.csproj",
       "packagesPath": "C:\\Users\\end17\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Common\\obj\\",
+      "outputPath": "C:\\Users\\end17\\source\\repos\\ClnArchFurnitureShop\\ClnArchMVCApp\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\end17\\AppData\\Roaming\\NuGet\\NuGet.Config",
