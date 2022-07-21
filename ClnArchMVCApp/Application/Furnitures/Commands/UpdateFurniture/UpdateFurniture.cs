@@ -15,13 +15,12 @@ namespace Application.Furnitures.Commands.UpdateFurniture
         public void Execute(Furniture furniture)
         {
             var foundModel = furnitureRepository.Get(furniture.Id);
-            furnitureRepository.Update(new Furniture()
-            {
-                Description = foundModel.Description,
-                Type = foundModel.Type,
-                Name = foundModel.Name
-            });
-            
+
+            foundModel.Name = furniture.Name;
+            foundModel.Description = furniture.Description;
+            foundModel.Type = furniture.Type;
+
+            furnitureRepository.Update(foundModel);
         }
     }
 }
