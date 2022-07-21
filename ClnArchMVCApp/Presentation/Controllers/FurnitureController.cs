@@ -64,10 +64,6 @@ namespace Presentation.Controllers
 
             return View(model);
 
-
-
-
-
         }
 
 
@@ -93,24 +89,26 @@ namespace Presentation.Controllers
 
         }
 
-        // GET: FurnitureController/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = furnitureRepository.Get(id);
+            return View(model);
         }
 
-        // POST: FurnitureController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, int b)
         {
+            var model = furnitureRepository.Get(id);
             try
             {
-                return RedirectToAction(nameof(Index));
+                furnitureRepository.Delete(model);
+                return View("Deleted");
             }
             catch
             {
-                return View();
+                return View("ErrorPage");
             }
         }
     }
