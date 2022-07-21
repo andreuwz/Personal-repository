@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Furnitures;
 
 namespace Domain.Users
 {
@@ -10,5 +11,7 @@ namespace Domain.Users
         public bool IsAdmin { get; set; }
         public string Firstname { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public List<Furniture> Furnitures { get; set; }
     }
 }
