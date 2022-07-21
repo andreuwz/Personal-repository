@@ -6,16 +6,24 @@ namespace Application.Furnitures.Queries.GetAllFurnituresList
     public class GetAllFurnituresQuery : IGetAllFurnituresListQuery
     {
 
-        private readonly IUserRepository userRepository;
+        private readonly IFurnitureRepository furnitureRepository;
 
-        public GetAllFurnituresQuery(IUserRepository userRepository)
+        public GetAllFurnituresQuery(IFurnitureRepository furnitureRepository)
         {
-            this.userRepository = userRepository;
+            this.furnitureRepository = furnitureRepository;
         }
 
-        public IEnumerable<Furniture> GetAllFurnitures()
+        public IEnumerable<FurnitureModel> GetAllFurnitures()
         {
-            throw new NotImplementedException();
+            return furnitureRepository.GetAll()
+                .Select(f => new FurnitureModel()
+                {
+                    Id = f.Id,
+                    Name = f.Name,
+                    Description = f.Description,
+                    Type = f.Type
+
+                });
         }
     }
 }
