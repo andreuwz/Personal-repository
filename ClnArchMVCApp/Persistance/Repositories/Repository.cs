@@ -15,11 +15,13 @@ namespace Persistance.Repositories
         public void Add(T entity)
         {
             context.Set<T>().Add(entity);
+            Save();
         }
 
         public void Delete(T entity)
         {
             context.Set<T>().Remove(entity);
+            Save();
         }
 
         public T Get(int id)
@@ -36,6 +38,12 @@ namespace Persistance.Repositories
         public void Update(T entity)
         {
             context.Set<T>().Update(entity);
+            Save();
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
         }
     }
 }
