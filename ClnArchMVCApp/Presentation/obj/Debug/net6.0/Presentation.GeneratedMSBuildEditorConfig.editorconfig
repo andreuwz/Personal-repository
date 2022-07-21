@@ -15,12 +15,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\end17\source\repos\ClnArchFurnitureShop\ClnArchMVCApp\Presentation
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Furniture/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Furniture/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Furniture/Edited.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXEVkaXRlZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Shared/Error.cshtml]
