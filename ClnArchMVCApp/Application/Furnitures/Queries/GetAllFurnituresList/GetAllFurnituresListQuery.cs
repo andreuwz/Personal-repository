@@ -4,7 +4,6 @@ namespace Application.Furnitures.Queries.GetAllFurnituresList
 {
     public class GetAllFurnituresQuery : IGetAllFurnituresListQuery
     {
-
         private readonly IFurnitureRepository furnitureRepository;
 
         public GetAllFurnituresQuery(IFurnitureRepository furnitureRepository)

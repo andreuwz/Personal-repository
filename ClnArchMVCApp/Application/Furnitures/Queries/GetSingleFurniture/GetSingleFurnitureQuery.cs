@@ -4,7 +4,7 @@ namespace Application.Furnitures.Queries.GetSingleFurniture
 {
     public class GetSingleFurnitureQuery : IGetSingleFurnitureQuery
     {
-        public IFurnitureRepository furnitureRepository;
+        private readonly IFurnitureRepository furnitureRepository;
         public GetSingleFurnitureQuery(IFurnitureRepository furnitureRepository)
         {
             this.furnitureRepository = furnitureRepository;
