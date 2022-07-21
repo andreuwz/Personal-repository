@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Persistence;
+using Domain.Users;
 
 namespace Persistance.Repositories.Users
 {
