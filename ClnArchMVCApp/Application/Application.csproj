@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Folder Include="Furnitures\Commands\" />
-    <Folder Include="Furnitures\Queries\" />
+    <Folder Include="Furnitures\Queries\GetSingleFurniture\" />
     <Folder Include="Users\Commands\" />
     <Folder Include="Users\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
