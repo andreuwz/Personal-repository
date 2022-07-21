@@ -4,6 +4,6 @@ namespace Application.Furnitures.Queries.GetAllFurnituresList
 {
     public interface IGetAllFurnituresListQuery
     {
-        public IEnumerable<FurnitureModel> GetAllFurnitures();
+        public IEnumerable<FurnitureModel> Execute();
     }
 }
