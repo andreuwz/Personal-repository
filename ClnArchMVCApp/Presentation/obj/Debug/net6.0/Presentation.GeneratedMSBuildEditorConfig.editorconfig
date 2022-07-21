@@ -19,12 +19,24 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Furniture/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Furniture/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Furniture/Edited.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXEVkaXRlZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Furniture/ErrorPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXEVycm9yUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Furniture/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVybml0dXJlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/end17/source/repos/ClnArchFurnitureShop/ClnArchMVCApp/Presentation/Views/Shared/Error.cshtml]

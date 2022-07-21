@@ -24,18 +24,20 @@ namespace Presentation.Controllers
             this.furnitureRepository = furnitureRepository;
         }
 
-        // GET: FurnitureController
+        [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            var model = furnitureRepository.GetAll();
+            return View(model);
         }
 
-        // GET: FurnitureController/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
-            return View();
+            var model = furnitureRepository.Get(id);
+            return View(model);
         }
-       
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -53,11 +55,22 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+
             var model = furnitureRepository.Get(id);
+            if (model == null)
+            {
+                return View("ErrorPage");
+            }
+
             return View(model);
+
+
+
+
+
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Furniture model)
@@ -65,14 +78,19 @@ namespace Presentation.Controllers
             try
             {
                 var foundModel = furnitureRepository.Get(model.Id);
+
+                foundModel.Description = model.Description;
+                foundModel.Name = model.Name;
+                foundModel.Type = model.Type;
+
                 updateFurniture.Execute(foundModel);
-                return View("Edited",foundModel);
+                return View("Edited", foundModel);
             }
             catch
             {
                 return View();
             }
-            
+
         }
 
         // GET: FurnitureController/Delete/5
