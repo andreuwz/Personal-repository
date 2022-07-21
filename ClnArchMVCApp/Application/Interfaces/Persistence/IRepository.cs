@@ -1,4 +1,6 @@
-﻿namespace Application.Interfaces.Persistence
+﻿using Domain.Furnitures;
+
+namespace Application.Interfaces.Persistence
 {
     public interface IRepository<T>
     {
@@ -6,6 +8,7 @@
         T Get(int id);  
         void Add(T entity);
         void Delete(T entity);  
-        void Update(T entity);  
+        void Update(T entity);
+        void Save();
     }
 }
