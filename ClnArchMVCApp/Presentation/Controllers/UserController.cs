@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Persistence;
 using Application.Users.Commands.UserAdd.UserFactory;
+using Application.Users.Commands.UserUpdate;
 using Domain.Users;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,14 @@ namespace Presentation.Controllers
         private readonly IUserRepository userRepository;
         private readonly IFurnitureRepository furnitureRepository;
         private readonly IUserFactory userFactory;
+        private readonly IUserUpdate userUpdate;
 
-        public UserController(IUserRepository userRepository, IFurnitureRepository furnitureRepository, IUserFactory userFactory)
+        public UserController(IUserRepository userRepository, IFurnitureRepository furnitureRepository, IUserFactory userFactory, IUserUpdate userUpdate)
         {
             this.userRepository = userRepository;
             this.furnitureRepository = furnitureRepository;
             this.userFactory = userFactory;
+            this.userUpdate = userUpdate;
         }
 
         [HttpGet]
@@ -99,11 +102,17 @@ namespace Presentation.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var updateUser = userRepository.Get(user.Id);
+                updateUser.Username = user.Username;
+                updateUser.Firstname = user.Firstname;
+                updateUser.Password = user.Password;
+
+                userUpdate.Execute(updateUser);
+                return View("Edited", updateUser);
             }
             catch
             {
-                return View();
+                return View("Edit");
             }
         }
 
