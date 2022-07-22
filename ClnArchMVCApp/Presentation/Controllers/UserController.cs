@@ -1,6 +1,7 @@
 ﻿using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Interfaces.Persistence;
 using Application.Users.Commands.UserAdd.UserFactory;
+using Application.Users.Commands.UserDelete;
 using Application.Users.Commands.UserUpdate;
 using Application.Users.Queries.GetAllUsers;
 using Application.Users.Queries.GetUser;
@@ -12,23 +13,23 @@ namespace Presentation.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository userRepository;
-        private readonly IFurnitureRepository furnitureRepository;
         private readonly IUserFactory userFactory;
         private readonly IUserUpdate userUpdate;
         private readonly IGetUser getUser;
         private readonly IGetAllUsers getAllUsers;
         private readonly IGetAllFurnituresListQuery getAllFurnituresQuery;
+        private readonly IUserDelete userDelete;
 
-        public UserController(IUserRepository userRepository, IFurnitureRepository furnitureRepository, IUserFactory userFactory
-            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery)
+        public UserController(IUserRepository userRepository, IUserFactory userFactory
+            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete)
         {
             this.userRepository = userRepository;
-            this.furnitureRepository = furnitureRepository;
             this.userFactory = userFactory;
             this.userUpdate = userUpdate;
             this.getAllUsers = getAllUsers;
             this.getUser = getUser;
             this.getAllFurnituresQuery = getAllFurnituresQuery;
+            this.userDelete = userDelete;
         }
 
         [HttpGet]
@@ -57,7 +58,7 @@ namespace Presentation.Controllers
         [HttpGet] 
         public ActionResult UserAdminMenu()
         {
-            var model = getAllUsers.GetAll();
+            var model = getAllUsers.Execute();
             return View("UserAdminMenu", model);
         }
 
@@ -71,8 +72,14 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var model = getUser.GetUser(id);
+            var model = getUser.Execute(id);
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult AdminInitialMenu()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -111,7 +118,7 @@ namespace Presentation.Controllers
             try
             {
                 int resultId = int.Parse(currentId);
-                var updateUser = getUser.GetUser(resultId);
+                var updateUser = getUser.Execute(resultId);
 
                 updateUser.Username = user.Username;
                 updateUser.Firstname = user.Firstname;
@@ -129,7 +136,10 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Delete()
         {
-            return View();
+            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
+            int resultId = int.Parse(currentId);
+            var deleteuser = getUser.Execute(resultId);
+            return View(deleteuser);
         }
 
         [HttpPost]
@@ -141,15 +151,15 @@ namespace Presentation.Controllers
             try
             {
                 int resultId = int.Parse(currentId);
-                var deleteUser = getUser.GetUser(resultId);
+                var deleteUser = getUser.Execute(resultId);
 
-                userRepository.Delete(deleteUser);
+                userDelete.Execute(resultId);
 
                 return View("Deleted", deleteUser);
             }
             catch
             {
-                return View("Delete");
+                return View("ErrorPage");
             }
         }
     }
