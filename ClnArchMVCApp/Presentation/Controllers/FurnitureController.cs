@@ -57,8 +57,8 @@ namespace Presentation.Controllers
         {
             try
             {
-                furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description, furnitureModel.Quantity);
-                return View("Created");
+                var newFurniture = furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description, furnitureModel.Quantity);
+                return View("Created", newFurniture);
             }
             catch
             {
@@ -147,7 +147,7 @@ namespace Presentation.Controllers
         public ActionResult AdminFurnitureDetails(int id)
         {
             var model = getFurniture.Execute(id);
-            return View("AdminDetails",model);
+            return View("AdminDetails", model);
         }
     }
 }
