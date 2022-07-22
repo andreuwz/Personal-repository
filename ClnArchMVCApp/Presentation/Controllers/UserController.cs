@@ -1,6 +1,9 @@
-﻿using Application.Interfaces.Persistence;
+﻿using Application.Furnitures.Queries.GetAllFurnituresList;
+using Application.Interfaces.Persistence;
 using Application.Users.Commands.UserAdd.UserFactory;
 using Application.Users.Commands.UserUpdate;
+using Application.Users.Queries.GetAllUsers;
+using Application.Users.Queries.GetUser;
 using Domain.Users;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,21 +15,26 @@ namespace Presentation.Controllers
         private readonly IFurnitureRepository furnitureRepository;
         private readonly IUserFactory userFactory;
         private readonly IUserUpdate userUpdate;
+        private readonly IGetUser getUser;
+        private readonly IGetAllUsers getAllUsers;
+        private readonly IGetAllFurnituresListQuery getAllFurnituresQuery;
 
-        public UserController(IUserRepository userRepository, IFurnitureRepository furnitureRepository, IUserFactory userFactory, IUserUpdate userUpdate)
+        public UserController(IUserRepository userRepository, IFurnitureRepository furnitureRepository, IUserFactory userFactory
+            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery)
         {
             this.userRepository = userRepository;
             this.furnitureRepository = furnitureRepository;
             this.userFactory = userFactory;
             this.userUpdate = userUpdate;
+            this.getAllUsers = getAllUsers;
+            this.getUser = getUser;
+            this.getAllFurnituresQuery = getAllFurnituresQuery;
         }
 
         [HttpGet]
         public ActionResult Login()
         {
-
             return View("Login");
-
         }
 
         [HttpPost]
@@ -49,21 +57,21 @@ namespace Presentation.Controllers
         [HttpGet] 
         public ActionResult UserAdminMenu()
         {
-            var model = userRepository.GetAll();
+            var model = getAllUsers.GetAll();
             return View("UserAdminMenu", model);
         }
 
         [HttpGet]
         public ActionResult FurnitureAdminMenu()
         {
-            var model = furnitureRepository.GetAll();
+            var model = getAllFurnituresQuery.Execute();
             return View("FurnitureAdminMenu", model);
         }
 
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var model = userRepository.Get(id);
+            var model = getUser.GetUser(id);
             return View(model);
         }
 
@@ -100,9 +108,12 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
+            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
+
             try
             {
-                var updateUser = userRepository.Get(user.Id);
+                int resultId = int.Parse(currentId);
+                var updateUser = userRepository.Get(resultId);
                 updateUser.Username = user.Username;
                 updateUser.Firstname = user.Firstname;
                 updateUser.Password = user.Password;
