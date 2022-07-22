@@ -42,7 +42,8 @@ namespace Persistance
                     {
                         Name = "Azure",
                         Description = "Item is suitable for living room",
-                        Type = "Sofa"
+                        Type = "Sofa",
+                        Quantity = 5
                     };
 
                     context.Furnitures.Add(seededFurniture);
