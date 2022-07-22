@@ -81,7 +81,6 @@ namespace Presentation.Controllers
             return View();
         }
 
-        // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
@@ -102,7 +101,6 @@ namespace Presentation.Controllers
         {
             return View();
         }
-
         
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -113,7 +111,8 @@ namespace Presentation.Controllers
             try
             {
                 int resultId = int.Parse(currentId);
-                var updateUser = userRepository.Get(resultId);
+                var updateUser = getUser.GetUser(resultId);
+
                 updateUser.Username = user.Username;
                 updateUser.Firstname = user.Firstname;
                 updateUser.Password = user.Password;
@@ -127,24 +126,30 @@ namespace Presentation.Controllers
             }
         }
 
-        // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Delete()
         {
             return View();
         }
 
-        // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
+            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                int resultId = int.Parse(currentId);
+                var deleteUser = getUser.GetUser(resultId);
+
+                userRepository.Delete(deleteUser);
+
+                return View("Deleted", deleteUser);
             }
             catch
             {
-                return View();
+                return View("Delete");
             }
         }
     }
