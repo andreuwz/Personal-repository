@@ -48,15 +48,23 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(FurnitureModel furnitureModel)
         {
-            var model = furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description);
-            return View(model);
+            try
+            {
+                furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description);
+                return View("Created");
+            }
+            catch
+            {
+                return View("Create");
+                
+            }
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-
             var model = furnitureRepository.Get(id);
+
             if (model == null)
             {
                 return View("ErrorPage");
@@ -65,7 +73,6 @@ namespace Presentation.Controllers
             return View(model);
 
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -103,7 +110,7 @@ namespace Presentation.Controllers
             var model = furnitureRepository.Get(id);
             try
             {
-                furnitureRepository.Delete(model);
+                removeFurniture.Execute(model);
                 return View("Deleted");
             }
             catch
