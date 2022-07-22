@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Persistence;
 using Domain.Common;
+using Domain.Users;
 
 namespace Persistance.Repositories
 {
@@ -44,6 +45,11 @@ namespace Persistance.Repositories
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public User Login(string username, string password)
+        {
+            return context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
         }
     }
 }
