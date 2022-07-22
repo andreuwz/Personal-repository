@@ -7,6 +7,8 @@ using Application.Interfaces.Persistence;
 using Application.Users.Commands.UserAdd.UserFactory;
 using Application.Users.Commands.UserLogin;
 using Application.Users.Commands.UserUpdate;
+using Application.Users.Queries.GetAllUsers;
+using Application.Users.Queries.GetUser;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Persistance.Repositories;
@@ -21,6 +23,8 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(c
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IFurnitureRepository, FurnitureRepository>();
+builder.Services.AddTransient<IGetUser, GetUser>();
+builder.Services.AddTransient<IGetAllUsers, GetAllUsers>();
 builder.Services.AddTransient<IUserUpdate, UserUpdate>();
 builder.Services.AddTransient<IUserFactory, UserFactory>();
 builder.Services.AddTransient<IUserLogin, UserLogin>();
