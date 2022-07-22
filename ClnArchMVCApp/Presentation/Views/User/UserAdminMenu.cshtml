@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Domain.Users.User>
+
+@{
+    ViewData["Title"] = "Admin menu - Users";
+}
+
+<h1>Welcome to the User Admin Menu</h1>
+
+<p>
+    <a asp-action="Create">Click here to create new user</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAdmin)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAdmin)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "User",new { id=item.Id}) |
+                @Html.ActionLink("Details", "Details","User", new { id=item.Id}) |
+                @Html.ActionLink("Delete", "Delete", "User",new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

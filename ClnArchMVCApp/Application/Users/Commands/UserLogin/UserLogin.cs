@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Persistence;
+using Domain.Users;
 
 namespace Application.Users.Commands.UserLogin
 {
@@ -9,16 +10,18 @@ namespace Application.Users.Commands.UserLogin
         {
             this.userRepository = userRepository;
         }
-        public bool Execute(int id)
+        public User Execute(string username, string password)
         {
-            var foundUser = userRepository.Get(id);
+
+            var foundUser = userRepository.Login(username, password);
 
             if (foundUser != null)
             {
-                return true;
+                return foundUser;
             }
 
-            return false;
+            return null;
+            
         }
     }
 }

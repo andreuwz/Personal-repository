@@ -1,4 +1,5 @@
 ﻿using Domain.Furnitures;
+using Domain.Users;
 
 namespace Application.Interfaces.Persistence
 {
@@ -10,5 +11,6 @@ namespace Application.Interfaces.Persistence
         void Delete(T entity);  
         void Update(T entity);
         void Save();
+        User Login(string username, string password);
     }
 }

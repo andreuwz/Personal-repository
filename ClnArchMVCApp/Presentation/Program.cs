@@ -4,6 +4,9 @@ using Application.Furnitures.Commands.UpdateFurniture;
 using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Furnitures.Queries.GetSingleFurniture;
 using Application.Interfaces.Persistence;
+using Application.Users.Commands.UserAdd.UserFactory;
+using Application.Users.Commands.UserLogin;
+using Application.Users.Commands.UserUpdate;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Persistance.Repositories;
@@ -16,8 +19,11 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
 
-
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IFurnitureRepository, FurnitureRepository>();
+builder.Services.AddTransient<IUserUpdate, UserUpdate>();
+builder.Services.AddTransient<IUserFactory, UserFactory>();
+builder.Services.AddTransient<IUserLogin, UserLogin>();
 builder.Services.AddTransient<IRemoveFurniture, RemoveFurniture>();
 builder.Services.AddTransient<IUpdateFurniture, UpdateFurniture>();
 builder.Services.AddTransient<IFurnitureFactory, FurnitureFactory>();
@@ -47,7 +53,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Furniture}/{action=Index}/{id?}");
+    pattern: "{controller=User}/{action=Login}/{id?}");
 
 app.Run();
 

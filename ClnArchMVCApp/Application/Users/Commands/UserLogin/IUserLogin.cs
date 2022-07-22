@@ -1,7 +1,9 @@
-﻿namespace Application.Users.Commands.UserLogin
+﻿using Domain.Users;
+
+namespace Application.Users.Commands.UserLogin
 {
     public interface IUserLogin
     {
-        bool Execute(int id);
+        User Execute(string username, string password);
     }
 }
