@@ -4,6 +4,6 @@ namespace Application.Furnitures.Commands.AddFurniture.FurnitureFactory
 {
     public interface IFurnitureFactory
     {
-        Furniture Execute(string name, string type, string description);
+        Furniture Execute(string name, string type, string description, int quantity);
     }
 }

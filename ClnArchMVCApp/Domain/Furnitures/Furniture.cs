@@ -13,7 +13,8 @@ namespace Domain.Furnitures
         public string Type { get; set; }
         [Required]
         public string Description { get; set; }
-
+        [Required]
+        public int Quantity { get; set; }
         public List<User> Users { get; set; }
     }
 }

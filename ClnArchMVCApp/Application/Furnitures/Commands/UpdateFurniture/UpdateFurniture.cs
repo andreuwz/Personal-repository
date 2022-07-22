@@ -19,6 +19,7 @@ namespace Application.Furnitures.Commands.UpdateFurniture
             foundModel.Name = furniture.Name;
             foundModel.Description = furniture.Description;
             foundModel.Type = furniture.Type;
+            foundModel.Quantity = furniture.Quantity;
 
             furnitureRepository.Update(foundModel);
         }

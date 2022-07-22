@@ -57,7 +57,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description);
+                furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description, furnitureModel.Quantity);
                 return View("Created");
             }
             catch
@@ -70,14 +70,27 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var model = getFurniture.Execute(id);
-
-            if (model == null)
+            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
+            
+            try
             {
-                return View("ErrorPage");
-            }
+                int resultId = int.Parse(currentId);
+                var model = getFurniture.Execute(resultId);
 
-            return View(model);
+                if (model == null)
+                {
+                    return View("ErrorPage");
+                }
+
+                return View(model);
+            }
+            catch
+            {
+                return View("Edit");
+            }
+            
+
+            
 
         }
 
@@ -85,13 +98,17 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Furniture model)
         {
+            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
+
             try
             {
-                var foundModel = furnitureRepository.Get(model.Id);
+                int resultId = int.Parse(currentId);
+                var foundModel = furnitureRepository.Get(resultId);
 
                 foundModel.Description = model.Description;
                 foundModel.Name = model.Name;
                 foundModel.Type = model.Type;
+                foundModel.Quantity = model.Quantity;
 
                 updateFurniture.Execute(foundModel);
                 return View("Edited", foundModel);
@@ -124,6 +141,13 @@ namespace Presentation.Controllers
             {
                 return View("ErrorPage");
             }
+        }
+
+        [HttpGet]
+        public ActionResult AdminFurnitureDetails(int id)
+        {
+            var model = getFurniture.Execute(id);
+            return View("AdminDetails",model);
         }
     }
 }

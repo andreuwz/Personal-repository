@@ -12,14 +12,15 @@ namespace Application.Furnitures.Commands.AddFurniture.FurnitureFactory
             this.furnitureRepository = furnitureRepository;
         }
 
-        public Furniture Execute(string name, string type, string description)
+        public Furniture Execute(string name, string type, string description, int quantity)
         {
 
             Furniture newItem = new Furniture()
             {
                 Name = name,
                 Type = type,    
-                Description = description
+                Description = description,
+                Quantity = quantity
             };
             furnitureRepository.Add(newItem);
             return newItem;
