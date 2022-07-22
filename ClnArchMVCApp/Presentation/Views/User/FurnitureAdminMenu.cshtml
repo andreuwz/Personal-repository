@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.Furnitures.Furniture>
+﻿@model IEnumerable<Application.Furnitures.FurnitureModel>
 
 @{
     ViewData["Title"] = "Here are the existing furnitures";
@@ -7,7 +7,10 @@
 <h1>Furniture Admin menu</h1>
 
 <p>
-    <a asp-action="Create">Click here to create new furniture</a>
+    <a asp-action="Create" asp-controller="Furniture">Click here to create new furniture</a>
+</p>
+<p>
+    <a asp-action="AdminInitialMenu" asp-controller="User">Back to previous menu</a>
 </p>
 <table class="table">
     <thead>
@@ -44,7 +47,7 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit","Furniture" ,new { id=item.Id}) |
-                @Html.ActionLink("Details", "Details", "Furniture" ,new { id=item.Id}) |
+                @Html.ActionLink("Details", "AdminFurnitureDetails", "Furniture" ,new { id=item.Id}) |
                 @Html.ActionLink("Delete", "Delete", "Furniture" ,new { id=item.Id })
                 
             </td>

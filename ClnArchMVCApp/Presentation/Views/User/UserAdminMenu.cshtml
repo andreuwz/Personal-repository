@@ -34,32 +34,52 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Firstname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAdmin)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", "User",new { id=item.Id}) |
-                @Html.ActionLink("Details", "Details","User", new { id=item.Id}) |
-                @Html.ActionLink("Delete", "Delete", "User",new { id=item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAdmin)
+                </td>
+
+                @if (item.IsAdmin == false)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "User",new { id=item.Id})
+                    </td>
+                }
+
+
+                <td>
+                    @Html.ActionLink("Details", "Details","User", new { id=item.Id})
+
+                </td>
+
+                @if (item.IsAdmin == false)
+                {
+                    <td>
+                        @Html.ActionLink("Delete", "Delete","User", new { id=item.Id})
+                    </td>
+                }
+            </tr>
+        }
+
+        <p>
+            <a asp-action="AdminInitialMenu" asp-controller="User">Back to the Admin menu</a>
+        </p>
     </tbody>
 </table>
