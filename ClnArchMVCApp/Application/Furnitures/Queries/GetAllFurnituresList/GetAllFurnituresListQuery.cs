@@ -19,7 +19,8 @@ namespace Application.Furnitures.Queries.GetAllFurnituresList
                     Id = f.Id,
                     Name = f.Name,
                     Description = f.Description,
-                    Type = f.Type
+                    Type = f.Type,
+                    Quantity = f.Quantity,
 
                 });
         }

@@ -19,7 +19,8 @@ namespace Application.Furnitures.Queries.GetSingleFurniture
                 Name = item.Name,
                 Id = item.Id,
                 Description = item.Description,
-                Type = item.Type
+                Type = item.Type,
+                Quantity = item.Quantity,
             };
         }
     }
