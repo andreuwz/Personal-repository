@@ -4,6 +4,6 @@ namespace Application.Users.Queries.GetUser
 {
     public interface IGetUser
     {
-        User GetUser(int id);
+        User Execute(int id);
     }
 }

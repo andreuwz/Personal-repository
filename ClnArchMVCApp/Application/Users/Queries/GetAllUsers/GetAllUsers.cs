@@ -12,7 +12,7 @@ namespace Application.Users.Queries.GetAllUsers
             this.userRepository = userRepository;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<User> Execute()
         {
             return userRepository.GetAll();
         }

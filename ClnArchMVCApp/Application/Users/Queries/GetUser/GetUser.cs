@@ -11,7 +11,7 @@ namespace Application.Users.Queries.GetUser
         {
             this.userRepository = userRepository;
         }
-        User IGetUser.GetUser(int id)
+        User IGetUser.Execute(int id)
         {
             return userRepository.Get(id);
         }
