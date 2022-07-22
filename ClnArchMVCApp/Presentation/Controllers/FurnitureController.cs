@@ -2,6 +2,8 @@
 using Application.Furnitures.Commands.AddFurniture.FurnitureFactory;
 using Application.Furnitures.Commands.RemoveFurniture;
 using Application.Furnitures.Commands.UpdateFurniture;
+using Application.Furnitures.Queries.GetAllFurnituresList;
+using Application.Furnitures.Queries.GetSingleFurniture;
 using Application.Interfaces.Persistence;
 using Domain.Furnitures;
 using Microsoft.AspNetCore.Mvc;
@@ -14,27 +16,32 @@ namespace Presentation.Controllers
         private readonly IRemoveFurniture removeFurniture;
         private readonly IUpdateFurniture updateFurniture;
         private readonly IFurnitureRepository furnitureRepository;
+        private readonly IGetAllFurnituresListQuery getAllFurnitures;
+        private readonly IGetSingleFurnitureQuery getFurniture;
 
         public FurnitureController(IFurnitureFactory furnitureFactory, IRemoveFurniture removeFurniture
-            , IUpdateFurniture updateFurniture, IFurnitureRepository furnitureRepository)
+            , IUpdateFurniture updateFurniture, IFurnitureRepository furnitureRepository, IGetAllFurnituresListQuery getAllFurnitures
+            , IGetSingleFurnitureQuery getFurniture)
         {
             this.furnitureFactory = furnitureFactory;
             this.removeFurniture = removeFurniture;
             this.updateFurniture = updateFurniture;
             this.furnitureRepository = furnitureRepository;
+            this.getAllFurnitures = getAllFurnitures;
+            this.getFurniture = getFurniture;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var model = furnitureRepository.GetAll();
+            var model = getAllFurnitures.Execute();
             return View(model);
         }
 
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var model = furnitureRepository.Get(id);
+            var model = getFurniture.Execute(id);
             return View(model);
         }
 
@@ -63,7 +70,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var model = furnitureRepository.Get(id);
+            var model = getFurniture.Execute(id);
 
             if (model == null)
             {
