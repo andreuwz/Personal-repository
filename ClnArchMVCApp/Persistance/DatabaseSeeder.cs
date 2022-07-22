@@ -15,7 +15,7 @@ namespace Persistance
 
                 if (context.Database.EnsureCreated())
                 {
-                    User seededUser = new User()    
+                    User seededAdmin = new User()    
                     {
                         Username = "Andy",
                         Firstname = "Andrey",
@@ -25,6 +25,17 @@ namespace Persistance
 
                     };
 
+                    User seededUser = new User()
+                    {
+                        Username = "Ivan",
+                        Firstname = "Ivan",
+                        IsAdmin = false,
+                        CreatedAt = DateTime.UtcNow,
+                        Password = "123456"
+
+                    };
+
+                    context.Users.Add(seededAdmin);
                     context.Users.Add(seededUser);
 
                     Furniture seededFurniture = new Furniture()
