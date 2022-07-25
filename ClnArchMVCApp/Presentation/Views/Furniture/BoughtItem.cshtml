@@ -1,0 +1,11 @@
+﻿@model Domain.Furnitures.Furniture
+
+@{
+    ViewData["Title"] = "Bought item";
+ }
+    <h1>Item successfully bought!!!</h1>
+    <h1>There are @Model.Quantity pieces of this item left in the store.</h1>
+
+<p>
+    <a asp-action="Index" asp-controller="Furniture">Back to the list</a>
+</p>
