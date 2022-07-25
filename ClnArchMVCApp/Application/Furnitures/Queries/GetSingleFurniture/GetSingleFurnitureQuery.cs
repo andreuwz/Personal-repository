@@ -17,6 +17,7 @@ namespace Application.Furnitures.Queries.GetSingleFurniture
 
             return new FurnitureModel
             {
+                Id = id,
                 Name = item.Name,
                 Description = item.Description,
                 Type = item.Type,

@@ -17,6 +17,7 @@ namespace Application.Furnitures.Queries.GetAllFurnituresList
             return furnitureRepository.GetAll()
                 .Select(f => new FurnitureModel()
                 {
+                    Id = f.Id,
                     Name = f.Name,
                     Description = f.Description,
                     Type = f.Type,
