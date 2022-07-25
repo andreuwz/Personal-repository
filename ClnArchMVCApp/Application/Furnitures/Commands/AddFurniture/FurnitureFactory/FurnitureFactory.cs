@@ -11,10 +11,9 @@ namespace Application.Furnitures.Commands.AddFurniture.FurnitureFactory
         {
             this.furnitureRepository = furnitureRepository;
         }
-
+            
         public Furniture Execute(string name, string type, string description, int quantity)
         {
-
             Furniture newItem = new Furniture()
             {
                 Name = name,
