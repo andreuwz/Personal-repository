@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Persistence;
+using Domain.Furnitures;
 
 namespace Application.Furnitures.Queries.GetSingleFurniture
 {
@@ -17,7 +18,6 @@ namespace Application.Furnitures.Queries.GetSingleFurniture
             return new FurnitureModel
             {
                 Name = item.Name,
-                Id = item.Id,
                 Description = item.Description,
                 Type = item.Type,
                 Quantity = item.Quantity,

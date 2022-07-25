@@ -1,4 +1,5 @@
-﻿namespace Application.Furnitures.Queries.GetSingleFurniture
+﻿
+namespace Application.Furnitures.Queries.GetSingleFurniture
 {
     public interface IGetSingleFurnitureQuery
     {
