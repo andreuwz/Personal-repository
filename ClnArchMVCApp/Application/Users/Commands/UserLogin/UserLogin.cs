@@ -10,18 +10,21 @@ namespace Application.Users.Commands.UserLogin
         {
             this.userRepository = userRepository;
         }
-        public User Execute(string username, string password)
+        public UserModel Execute(string username, string password)
         {
-
             var foundUser = userRepository.Login(username, password);
 
             if (foundUser != null)
             {
-                return foundUser;
+                return new UserModel()
+                {
+                    Username = foundUser.Username,
+                    Firstname = foundUser.Firstname,
+                    IsAdmin = foundUser.IsAdmin,
+                };
             }
 
             return null;
-            
         }
     }
 }

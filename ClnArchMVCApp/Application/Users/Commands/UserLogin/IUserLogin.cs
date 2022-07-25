@@ -4,6 +4,6 @@ namespace Application.Users.Commands.UserLogin
 {
     public interface IUserLogin
     {
-        User Execute(string username, string password);
+        UserModel Execute(string username, string password);
     }
 }
