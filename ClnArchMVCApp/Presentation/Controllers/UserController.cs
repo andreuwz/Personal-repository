@@ -137,26 +137,20 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete()
+        public ActionResult Delete(int id)
         {
-            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
-            int resultId = int.Parse(currentId);
-            var deleteuser = getUser.Execute(resultId);
+            var deleteuser = getUser.Execute(id);
             return View(deleteuser);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int a)
         {
-            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
-
             try
             {
-                int resultId = int.Parse(currentId);
-                var deleteUser = getUser.Execute(resultId);
-
-                userDelete.Execute(resultId);
+                var deleteUser = getUser.Execute(id);
+                userDelete.Execute(id);
 
                 return View("Deleted", deleteUser);
             }
