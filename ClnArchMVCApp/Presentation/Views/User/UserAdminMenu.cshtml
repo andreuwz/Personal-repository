@@ -48,20 +48,20 @@
                 @if (item.IsAdmin == false)
                 {
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "User",new { id=item.Id})
+                        @Html.ActionLink("Edit", "Edit", "User",new { id=item.Firstname})
                     </td>
                 }
 
 
                 <td>
-                    @Html.ActionLink("Details", "Details","User", new { id=item.Id})
+                    @Html.ActionLink("Details", "Details","User", new { id=item.Firstname})
 
                 </td>
 
                 @if (item.IsAdmin == false)
                 {
                     <td>
-                        @Html.ActionLink("Delete", "Delete","User", new { id=item.Id})
+                        @Html.ActionLink("Delete", "Delete","User", new { id=item.Firstname})
                     </td>
                 }
             </tr>
