@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Persistence;
+using Domain.Furnitures;
 
 namespace Application.Furnitures.Queries.GetAllFurnituresList
 {
@@ -16,12 +17,10 @@ namespace Application.Furnitures.Queries.GetAllFurnituresList
             return furnitureRepository.GetAll()
                 .Select(f => new FurnitureModel()
                 {
-                    Id = f.Id,
                     Name = f.Name,
                     Description = f.Description,
                     Type = f.Type,
                     Quantity = f.Quantity,
-
                 });
         }
     }
