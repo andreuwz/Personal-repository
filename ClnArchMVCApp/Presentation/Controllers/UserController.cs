@@ -3,6 +3,7 @@ using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
 using Application.Interfaces.Persistence;
 using Application.Users.Commands.UserAdd.UserFactory;
 using Application.Users.Commands.UserDelete;
+using Application.Users.Commands.UserLogin;
 using Application.Users.Commands.UserUpdate;
 using Application.Users.Queries.GetAllUsers;
 using Application.Users.Queries.GetUser;
@@ -13,7 +14,7 @@ namespace Presentation.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserLogin userLogin;
         private readonly IUserFactory userFactory;
         private readonly IUserUpdate userUpdate;
         private readonly IGetUser getUser;
@@ -22,10 +23,9 @@ namespace Presentation.Controllers
         private readonly IUserDelete userDelete;
         private readonly IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery;
 
-        public UserController(IUserRepository userRepository, IUserFactory userFactory
-            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete, IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery)
+        public UserController (IUserFactory userFactory
+            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete, IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery, IUserLogin userLogin)
         {
-            this.userRepository = userRepository;
             this.userFactory = userFactory;
             this.userUpdate = userUpdate;
             this.getAllUsers = getAllUsers;
@@ -33,6 +33,7 @@ namespace Presentation.Controllers
             this.getAllFurnituresQuery = getAllFurnituresQuery;
             this.userDelete = userDelete;
             this.getAllFurnituresAdminQuery = getAllFurnituresAdminQuery;
+            this.userLogin = userLogin;
         }
 
         [HttpGet]
@@ -44,7 +45,7 @@ namespace Presentation.Controllers
         [HttpPost]
         public ActionResult Login(User user)
         {
-            var foundUser = userRepository.Login(user.Username, user.Password);
+            var foundUser = userLogin.Execute(user.Username, user.Password);
 
             if (foundUser != null && !foundUser.IsAdmin)
             {
