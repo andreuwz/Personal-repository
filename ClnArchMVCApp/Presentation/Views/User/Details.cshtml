@@ -39,7 +39,7 @@
 <div>
     @if (Model.IsAdmin == false)
     {
-        <a asp-action="Edit" asp-route-id="@Model?.Username">Edit</a> 
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> 
     }
     
     <a asp-action="UserAdminMenu">Back to List</a>
