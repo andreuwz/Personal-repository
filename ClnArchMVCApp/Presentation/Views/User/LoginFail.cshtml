@@ -1,4 +1,8 @@
-﻿<h1>Login authorization - failed. Please, try again.</h1>
-<p>
-    <a asp-action="Login">Login page</a>
-</p>
+﻿<div>
+    <script asp-fallback-src="">
+                           alert('@Html.Raw(TempData["msg"])')
+                           window.location.href = "User/Login";
+    </script>
+</div>
+
+

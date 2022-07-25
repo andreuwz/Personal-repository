@@ -1,5 +1,6 @@
 ﻿using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
+using Application.Users;
 using Application.Users.Commands.UserAdd.UserFactory;
 using Application.Users.Commands.UserDelete;
 using Application.Users.Commands.UserLogin;
@@ -22,7 +23,7 @@ namespace Presentation.Controllers
         private readonly IUserDelete userDelete;
         private readonly IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery;
 
-        public UserController (IUserFactory userFactory
+        public UserController(IUserFactory userFactory
             , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete, IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery, IUserLogin userLogin)
         {
             this.userFactory = userFactory;
@@ -42,23 +43,36 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
+        public ActionResult Login(LoginModel loginModel)
         {
-            var foundUser = userLogin.Execute(user.Username, user.Password);
-
-            if (foundUser != null && !foundUser.IsAdmin)
+            var foundUser = userLogin.Execute(loginModel.Username, loginModel.Password);
+            try
             {
-                return RedirectToAction("Index", "Furniture");
+                if (foundUser != null && foundUser.IsAdmin)
+                {
+
+                    return View("AdminInitialMenu");
+                }
+
+                else if (foundUser != null && !foundUser.IsAdmin)
+                {
+                    return RedirectToAction("Index", "Furniture");
+
+                }
+                else
+                {
+                    TempData["msg"] = "Your Success Message";
+                    return View("LoginFail");
+                }
             }
-            else if (foundUser != null && foundUser.IsAdmin)
+            catch
             {
-                return View("AdminInitialMenu");
+                return View("Login");
             }
 
-            return View("LoginFail");
         }
 
-        [HttpGet] 
+        [HttpGet]
         public ActionResult UserAdminMenu()
         {
             var model = getAllUsers.Execute();
@@ -112,7 +126,7 @@ namespace Presentation.Controllers
             var model = getUser.Execute(id);
             return View(model);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
@@ -156,6 +170,14 @@ namespace Presentation.Controllers
         public ActionResult UserItems()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult LoginFail()
+        {
+            TempData["Message"] = "You are not authorized.";
+            return View("Login");
+            
         }
 
     }
