@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Users;
 
 namespace Application.Users.Queries.GetUser
 {
@@ -11,9 +10,17 @@ namespace Application.Users.Queries.GetUser
         {
             this.userRepository = userRepository;
         }
-        User IGetUser.Execute(int id)
+        public UserModel Execute(int id)
         {
-            return userRepository.Get(id);
+            var user = userRepository.Get(id);  
+
+            return new UserModel()
+            {
+                Username = user.Username,
+                CreatedAt = user.CreatedAt,
+                Firstname = user.Firstname,
+                IsAdmin = user.IsAdmin
+            };
         }
     }
 }

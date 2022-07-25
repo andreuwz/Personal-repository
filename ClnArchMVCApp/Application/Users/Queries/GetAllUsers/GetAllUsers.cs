@@ -12,9 +12,16 @@ namespace Application.Users.Queries.GetAllUsers
             this.userRepository = userRepository;
         }
 
-        public IEnumerable<User> Execute()
+        public IEnumerable<UserModel> Execute()
         {
-            return userRepository.GetAll();
+            return userRepository.GetAll()
+                 .Select(f => new UserModel()
+                 {
+                     Username = f.Username,
+                     IsAdmin = f.IsAdmin,
+                     CreatedAt = f.CreatedAt,
+                     Firstname = f.Firstname,
+                 });
         }
     }
 }

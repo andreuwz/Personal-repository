@@ -1,9 +1,7 @@
-﻿using Domain.Users;
-
-namespace Application.Users.Queries.GetUser
+﻿namespace Application.Users.Queries.GetUser
 {
     public interface IGetUser
     {
-        User Execute(int id);
+        UserModel Execute(int id);
     }
 }
