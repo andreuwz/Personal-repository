@@ -1,10 +1,12 @@
 ﻿using Application.Furnitures;
 using Application.Furnitures.Commands.AddFurniture.FurnitureFactory;
+using Application.Furnitures.Commands.BuyFurniture;
 using Application.Furnitures.Commands.RemoveFurniture;
 using Application.Furnitures.Commands.UpdateFurniture;
 using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Furnitures.Queries.GetSingleFurniture;
 using Application.Interfaces.Persistence;
+using Application.Users.Commands.UserAddItem;
 using Domain.Furnitures;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,10 +20,13 @@ namespace Presentation.Controllers
         private readonly IFurnitureRepository furnitureRepository;
         private readonly IGetAllFurnituresListQuery getAllFurnitures;
         private readonly IGetSingleFurnitureQuery getFurniture;
+        private readonly IBuyFurniture buyFurniture;
+        private readonly IUserAddItem userAddItem;
+
 
         public FurnitureController(IFurnitureFactory furnitureFactory, IRemoveFurniture removeFurniture
             , IUpdateFurniture updateFurniture, IFurnitureRepository furnitureRepository, IGetAllFurnituresListQuery getAllFurnitures
-            , IGetSingleFurnitureQuery getFurniture)
+            , IGetSingleFurnitureQuery getFurniture, IBuyFurniture buyFurniture, IUserAddItem userAddItem)
         {
             this.furnitureFactory = furnitureFactory;
             this.removeFurniture = removeFurniture;
@@ -29,6 +34,8 @@ namespace Presentation.Controllers
             this.furnitureRepository = furnitureRepository;
             this.getAllFurnitures = getAllFurnitures;
             this.getFurniture = getFurniture;
+            this.buyFurniture = buyFurniture;
+            this.userAddItem = userAddItem;
         }
 
         [HttpGet]
@@ -70,12 +77,9 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
-            
             try
             {
-                int resultId = int.Parse(currentId);
-                var model = getFurniture.Execute(resultId);
+                var model = getFurniture.Execute(id);
 
                 if (model == null)
                 {
@@ -88,30 +92,16 @@ namespace Presentation.Controllers
             {
                 return View("Edit");
             }
-            
-
-            
-
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Furniture model)
+        public ActionResult Edit(FurnitureModel model)
         {
-            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
-
             try
             {
-                int resultId = int.Parse(currentId);
-                var foundModel = furnitureRepository.Get(resultId);
-
-                foundModel.Description = model.Description;
-                foundModel.Name = model.Name;
-                foundModel.Type = model.Type;
-                foundModel.Quantity = model.Quantity;
-
-                updateFurniture.Execute(foundModel);
-                return View("Edited", foundModel);
+                updateFurniture.Execute(model);
+                return View("Edited", model);
             }
             catch
             {
@@ -148,6 +138,33 @@ namespace Presentation.Controllers
         {
             var model = getFurniture.Execute(id);
             return View("AdminDetails", model);
+        }
+
+        [HttpGet]
+        public ActionResult BuyFurniture(int id)
+        {
+            var model = getFurniture.Execute(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BuyFurniture(int id, int quantity)
+        {
+            try
+            {
+                var model = buyFurniture.Execute(id, quantity);
+                
+                if (model == null)
+                {
+                    return View("InvalidQuantity");
+                }
+                return View("BoughtItem",model);
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
