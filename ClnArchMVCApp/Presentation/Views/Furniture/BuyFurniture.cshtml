@@ -1,0 +1,49 @@
+﻿@model Domain.Furnitures.Furniture
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Furniture</h4>
+    <hr />
+    <form asp-action="BuyFurniture" asp-controller="Furniture">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div>
+
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="BUY" class="btn btn-danger" />
+
+            </div>
+        </dl>
+    </form>
+</div>
+<div>
+    <a asp-action="Index" asp-controller="Furniture">Back to List</a>
+</div>
+
