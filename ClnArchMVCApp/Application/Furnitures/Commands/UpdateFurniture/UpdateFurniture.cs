@@ -12,7 +12,7 @@ namespace Application.Furnitures.Commands.UpdateFurniture
             this.furnitureRepository = furnitureRepository;
         }
 
-        public void Execute(Furniture furniture)
+        public void Execute(FurnitureModel furniture)
         {
             var foundModel = furnitureRepository.Get(furniture.Id);
 
