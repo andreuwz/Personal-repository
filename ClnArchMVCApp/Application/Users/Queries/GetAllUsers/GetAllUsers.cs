@@ -17,6 +17,7 @@ namespace Application.Users.Queries.GetAllUsers
             return userRepository.GetAll()
                  .Select(f => new UserModel()
                  {
+                     Id = f.Id,
                      Username = f.Username,
                      IsAdmin = f.IsAdmin,
                      CreatedAt = f.CreatedAt,
