@@ -12,9 +12,9 @@ namespace Application.Furnitures.Commands.RemoveFurniture
             this.furnitureRepository = furnitureRepository;
         }
 
-        public void Execute(Furniture furniture)
+        public void Execute(int id)
         {
-            var foundModel = furnitureRepository.Get(furniture.Id);
+            var foundModel = furnitureRepository.Get(id);
             furnitureRepository.Delete(foundModel);
         }
     }

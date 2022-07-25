@@ -7,7 +7,6 @@ using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Furnitures.Queries.GetSingleFurniture;
 using Application.Interfaces.Persistence;
 using Application.Users.Commands.UserAddItem;
-using Domain.Furnitures;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -113,7 +112,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var model = furnitureRepository.Get(id);
+            var model = getFurniture.Execute(id);
             return View(model);
         }
 
@@ -121,10 +120,9 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, int b)
         {
-            var model = furnitureRepository.Get(id);
             try
             {
-                removeFurniture.Execute(model);
+                removeFurniture.Execute(id);
                 return View("Deleted");
             }
             catch

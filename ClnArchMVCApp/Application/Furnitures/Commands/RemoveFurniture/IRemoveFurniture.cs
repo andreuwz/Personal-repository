@@ -4,6 +4,6 @@ namespace Application.Furnitures.Commands.RemoveFurniture
 {
     public interface IRemoveFurniture
     {
-        void Execute(Furniture furniture);
+        void Execute(int id);
     }
 }
