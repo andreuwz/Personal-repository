@@ -1,6 +1,5 @@
 ﻿using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
-using Application.Interfaces.Persistence;
 using Application.Users.Commands.UserAdd.UserFactory;
 using Application.Users.Commands.UserDelete;
 using Application.Users.Commands.UserLogin;
@@ -108,28 +107,20 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            return View();
+            var model = getUser.Execute(id);
+            return View(model);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
-            var currentId = HttpContext.GetRouteData().Values["Id"].ToString();
-
             try
             {
-                int resultId = int.Parse(currentId);
-                var updateUser = getUser.Execute(resultId);
-
-                updateUser.Username = user.Username;
-                updateUser.Firstname = user.Firstname;
-                updateUser.Password = user.Password;
-
-                userUpdate.Execute(updateUser);
-                return View("Edited", updateUser);
+                var updatedUser = userUpdate.Execute(user);
+                return View("Edited", updatedUser);
             }
             catch
             {
