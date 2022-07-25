@@ -1,4 +1,5 @@
 ﻿using Application.Furnitures.Queries.GetAllFurnituresList;
+using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
 using Application.Interfaces.Persistence;
 using Application.Users.Commands.UserAdd.UserFactory;
 using Application.Users.Commands.UserDelete;
@@ -19,9 +20,10 @@ namespace Presentation.Controllers
         private readonly IGetAllUsers getAllUsers;
         private readonly IGetAllFurnituresListQuery getAllFurnituresQuery;
         private readonly IUserDelete userDelete;
+        private readonly IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery;
 
         public UserController(IUserRepository userRepository, IUserFactory userFactory
-            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete)
+            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete, IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery)
         {
             this.userRepository = userRepository;
             this.userFactory = userFactory;
@@ -30,6 +32,7 @@ namespace Presentation.Controllers
             this.getUser = getUser;
             this.getAllFurnituresQuery = getAllFurnituresQuery;
             this.userDelete = userDelete;
+            this.getAllFurnituresAdminQuery = getAllFurnituresAdminQuery;
         }
 
         [HttpGet]
@@ -65,7 +68,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult FurnitureAdminMenu()
         {
-            var model = getAllFurnituresQuery.Execute();
+            var model = getAllFurnituresAdminQuery.Execute();
             return View("FurnitureAdminMenu", model);
         }
 
@@ -162,5 +165,12 @@ namespace Presentation.Controllers
                 return View("ErrorPage");
             }
         }
+
+        [HttpGet]
+        public ActionResult UserItems()
+        {
+            return View();
+        }
+
     }
 }
