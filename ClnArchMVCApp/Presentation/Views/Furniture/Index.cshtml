@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Application.Furnitures.FurnitureModel>
-
 @{
     ViewData["Title"] = "Here are the existing furnitures";
 }
@@ -29,29 +28,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-           
-                @Html.ActionLink("Details", "Details","Furniture" ,new { id=item.Id}) |
-          
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            @if (item.Quantity > 0)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details","Furniture" ,new { id=item.Id}) |
+                        @Html.ActionLink("Buy", "BuyFurniture","Furniture" ,new { id=item.Id})
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
