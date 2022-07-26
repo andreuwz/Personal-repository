@@ -45,9 +45,11 @@ namespace Presentation.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
-            var foundUser = userLogin.Execute(loginModel.Username, loginModel.Password);
+            
             try
             {
+                var foundUser = userLogin.Execute(loginModel.Username, loginModel.Password);
+
                 if (foundUser != null && foundUser.IsAdmin)
                 {
 
@@ -61,7 +63,7 @@ namespace Presentation.Controllers
                 }
                 else
                 {
-                    TempData["msg"] = "Your Success Message";
+                    TempData["msg"] = "Unknown credentials. Authentication fail!";
                     return View("LoginFail");
                 }
             }

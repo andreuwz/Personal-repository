@@ -12,6 +12,11 @@ namespace Application.Users.Commands.UserLogin
         }
         public UserModel Execute(string username, string password)
         {
+            if (username == null || password == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var foundUser = userRepository.Login(username, password);
 
             if (foundUser != null)
