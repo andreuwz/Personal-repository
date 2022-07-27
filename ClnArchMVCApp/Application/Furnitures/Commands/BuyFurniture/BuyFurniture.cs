@@ -16,7 +16,7 @@ namespace Application.Furnitures.Commands.BuyFurniture
         {
             var foundModel = furnitureRepository.Get(id);
 
-            if (foundModel.Quantity >= quantity)
+            if (foundModel != null && foundModel.Quantity >= quantity)
             {
                 foundModel.Quantity -= quantity;
                 furnitureRepository.Update(foundModel);
@@ -24,7 +24,7 @@ namespace Application.Furnitures.Commands.BuyFurniture
                 return foundModel;
             }
 
-            return null;
+            throw new Exception();
         }
     }
 }
