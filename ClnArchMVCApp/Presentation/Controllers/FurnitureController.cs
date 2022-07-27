@@ -5,8 +5,7 @@ using Application.Furnitures.Commands.RemoveFurniture;
 using Application.Furnitures.Commands.UpdateFurniture;
 using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Furnitures.Queries.GetSingleFurniture;
-using Application.Interfaces.Persistence;
-using Application.Users.Commands.UserAddItem;
+using Application.Popup;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -16,25 +15,23 @@ namespace Presentation.Controllers
         private readonly IFurnitureFactory furnitureFactory;
         private readonly IRemoveFurniture removeFurniture;
         private readonly IUpdateFurniture updateFurniture;
-        private readonly IFurnitureRepository furnitureRepository;
         private readonly IGetAllFurnituresListQuery getAllFurnitures;
         private readonly IGetSingleFurnitureQuery getFurniture;
         private readonly IBuyFurniture buyFurniture;
-        private readonly IUserAddItem userAddItem;
+        private readonly ICreatePopup createPopup;
 
 
         public FurnitureController(IFurnitureFactory furnitureFactory, IRemoveFurniture removeFurniture
-            , IUpdateFurniture updateFurniture, IFurnitureRepository furnitureRepository, IGetAllFurnituresListQuery getAllFurnitures
-            , IGetSingleFurnitureQuery getFurniture, IBuyFurniture buyFurniture, IUserAddItem userAddItem)
+            , IUpdateFurniture updateFurniture, IGetAllFurnituresListQuery getAllFurnitures
+            , IGetSingleFurnitureQuery getFurniture, IBuyFurniture buyFurniture, ICreatePopup createPopup)
         {
             this.furnitureFactory = furnitureFactory;
             this.removeFurniture = removeFurniture;
             this.updateFurniture = updateFurniture;
-            this.furnitureRepository = furnitureRepository;
             this.getAllFurnitures = getAllFurnitures;
             this.getFurniture = getFurniture;
             this.buyFurniture = buyFurniture;
-            this.userAddItem = userAddItem;
+            this.createPopup = createPopup;
         }
 
         [HttpGet]
@@ -64,12 +61,17 @@ namespace Presentation.Controllers
             try
             {
                 var newFurniture = furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description, furnitureModel.Quantity);
-                return View("Created", newFurniture);
+
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action("FurnitureAdminMenu", "User", null, "https");
+                popupModel.Message = $"The {newFurniture.Name} was created successfully!";
+
+                return View("ModalPopUp", popupModel);
             }
             catch
             {
                 return View("Create");
-                
+
             }
         }
 
@@ -79,17 +81,15 @@ namespace Presentation.Controllers
             try
             {
                 var model = getFurniture.Execute(id);
-
-                if (model == null)
-                {
-                    return View("ErrorPage");
-                }
-
                 return View(model);
             }
             catch
             {
-                return View("Edit");
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action("FurnitureAdminMenu", "User", null, "https");
+                popupModel.Message = $"The furniture was not found!";
+
+                return View("ModalPopUp", popupModel);
             }
         }
 
@@ -100,11 +100,16 @@ namespace Presentation.Controllers
             try
             {
                 updateFurniture.Execute(model);
-                return View("Edited", model);
+
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action("FurnitureAdminMenu", "User", null, "https");
+                popupModel.Message = $"The {model.Name} furniture item was edited successfully!";
+
+                return View("ModalPopUp", popupModel);
             }
             catch
             {
-                return View();
+                return View("Edit");
             }
 
         }
@@ -112,23 +117,33 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var model = getFurniture.Execute(id);
-            return View(model);
+            try
+            {
+                var model = getFurniture.Execute(id);
+                return View(model);
+            }
+            catch
+            {
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action("FurnitureAdminMenu", "User", null, "https");
+                popupModel.Message = $"The furniture was not found!";
+
+                return View("ModalPopUp", popupModel);
+            }
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, int b)
         {
-            try
-            {
-                removeFurniture.Execute(id);
-                return View("Deleted");
-            }
-            catch
-            {
-                return View("ErrorPage");
-            }
+            removeFurniture.Execute(id);
+
+            var popupModel = createPopup.Create();
+            popupModel.Root = Url.Action("FurnitureAdminMenu", "User", null, "https");
+            popupModel.Message = $"The furniture was successfully deleted!";
+
+            return View("ModalPopUp", popupModel);
         }
 
         [HttpGet]
@@ -152,19 +167,23 @@ namespace Presentation.Controllers
             try
             {
                 var model = buyFurniture.Execute(id, quantity);
-                
-                if (model == null)
-                {
-                    return View("InvalidQuantity");
-                }
-                return View("BoughtItem",model);
+
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action("Index", "Furniture", null, "https");
+                popupModel.Message = $"You successfully bought {quantity} pieces of this item!";
+
+                return View("ModalPopUp", popupModel);
             }
             catch
             {
-                return View();
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action($"BuyFurniture", "Furniture", id, "https");
+                popupModel.Message = $"Cannot buy quantites which are higher than item availability in the store!";
+
+                return View("ModalPopUp", popupModel);
             }
         }
 
-        
+
     }
 }

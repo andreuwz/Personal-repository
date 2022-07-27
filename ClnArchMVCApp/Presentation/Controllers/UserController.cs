@@ -10,7 +10,6 @@ using Application.Users.Queries.GetAllUsers;
 using Application.Users.Queries.GetUser;
 using Domain.Users;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Presentation.Controllers
 {
@@ -21,21 +20,19 @@ namespace Presentation.Controllers
         private readonly IUserUpdate userUpdate;
         private readonly IGetUser getUser;
         private readonly IGetAllUsers getAllUsers;
-        private readonly IGetAllFurnituresListQuery getAllFurnituresQuery;
         private readonly IUserDelete userDelete;
         private readonly IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery;
         private readonly ICreatePopup createPopup;
 
         public UserController(IUserFactory userFactory
-            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser,
-            IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete, IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery, 
+            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IUserDelete userDelete,
+            IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery,
             IUserLogin userLogin, ICreatePopup createPopup)
         {
             this.userFactory = userFactory;
             this.userUpdate = userUpdate;
             this.getAllUsers = getAllUsers;
             this.getUser = getUser;
-            this.getAllFurnituresQuery = getAllFurnituresQuery;
             this.userDelete = userDelete;
             this.getAllFurnituresAdminQuery = getAllFurnituresAdminQuery;
             this.userLogin = userLogin;
@@ -51,7 +48,7 @@ namespace Presentation.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
-            
+
             try
             {
                 var foundUser = userLogin.Execute(loginModel.Username, loginModel.Password);
@@ -59,18 +56,29 @@ namespace Presentation.Controllers
                 if (foundUser != null && foundUser.IsAdmin)
                 {
 
-                    return View("AdminInitialMenu");
+                    var popupModel = createPopup.Create();
+                    popupModel.Root = Url.Action("AdminInitialMenu", "User", null, "https");
+                    popupModel.Message = $"You logged in as ADMIN.";
+
+                    return View("ModalPopUp", popupModel);
                 }
 
                 else if (foundUser != null && !foundUser.IsAdmin)
                 {
-                    return RedirectToAction("Index", "Furniture");
+                    var popupModel = createPopup.Create();
+                    popupModel.Root = Url.Action("Index", "Furniture", null, "https");
+                    popupModel.Message = $"You logged in as a regular user.";
+
+                    return View("ModalPopUp", popupModel);
 
                 }
                 else
                 {
-                    TempData["msg"] = "Unknown credentials. Authentication fail!";
-                    return View("SharedMessagePopup");
+                    var popupModel = createPopup.Create();
+                    popupModel.Root = Url.Action("Login", "User", null, "https");
+                    popupModel.Message = $"Login fail. Unrecognized credentials.";
+
+                    return View("ModalPopUp", popupModel);
                 }
             }
             catch
@@ -117,12 +125,16 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
         {
-            TempData["msg"] = $"{user.Username} created successfully!";
 
             try
             {
                 userFactory.Execute(user.Username, user.Password, user.Firstname, user.IsAdmin, user.CreatedAt);
-                return View("SharedMessagePopup");
+
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
+                popupModel.Message = $"User {user.Username} was created successfully!";
+
+                return View("ModalPopUp", popupModel);
             }
             catch
             {
@@ -133,24 +145,33 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var model = getUser.Execute(id);
-            return View(model);
+            try
+            {
+                var model = getUser.Execute(id);
+                return View(model);
+            }
+            catch
+            {
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
+                popupModel.Message = $"The user was not found!";
+
+                return View("ModalPopUp", popupModel);
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
-            
+
 
             try
             {
                 var updatedUser = userUpdate.Execute(user);
 
                 var popupModel = createPopup.Create();
-                popupModel.Controller = "User/";
-                popupModel.Action = "UserAdminMenu";
-                popupModel.Root = Url.Action("",null,null,"https") + popupModel.Controller + popupModel.Action;
+                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
                 popupModel.Message = $"The user {updatedUser.Username} was edited successfully";
 
                 return View("ModalPopUp", popupModel);
@@ -164,8 +185,20 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var deleteuser = getUser.Execute(id);
-            return View(deleteuser);
+            try
+            {
+                var deleteuser = getUser.Execute(id);
+                return View(deleteuser);
+            }
+            catch
+            {
+                var popupModel = createPopup.Create();
+                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
+                popupModel.Message = $"The user was not found!";
+
+                return View("ModalPopUp", popupModel);
+            }
+            
         }
 
         [HttpPost]
@@ -178,9 +211,7 @@ namespace Presentation.Controllers
                 userDelete.Execute(id);
 
                 var popupModel = createPopup.Create();
-                popupModel.Controller = "User/";
-                popupModel.Action = "UserAdminMenu";
-                popupModel.Root = Url.Action("", null, null, "https") + popupModel.Controller + popupModel.Action;
+                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
                 popupModel.Message = $"The user {deleteUser.Username} was deleted successfully";
 
                 return View("ModalPopUp", popupModel);
@@ -188,9 +219,7 @@ namespace Presentation.Controllers
             catch
             {
                 var popupModel = createPopup.Create();
-                popupModel.Controller = "User/";
-                popupModel.Action = "UserAdminMenu";
-                popupModel.Root = Url.Action("", null, null, "https") + popupModel.Controller + popupModel.Action;
+                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
                 popupModel.Message = $"Deletion was not successful";
 
                 return View("ModalPopUp", popupModel);
@@ -201,14 +230,6 @@ namespace Presentation.Controllers
         public ActionResult UserItems()
         {
             return View();
-        }
-
-        [HttpGet]
-        public ActionResult LoginFail()
-        {
-            TempData["Message"] = "You are not authorized.";
-            return View("Login");
-            
         }
 
     }
