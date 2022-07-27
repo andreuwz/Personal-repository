@@ -1,4 +1,4 @@
-﻿@model Domain.Users.User
+﻿@model Application.Users.UserModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -46,6 +46,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="UserAdminMenu">Back to List</a>
+        <a asp-action="ModalPopUp">Back to List</a>
     </form>
 </div>

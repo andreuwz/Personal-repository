@@ -6,6 +6,7 @@ using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
 using Application.Furnitures.Queries.GetSingleFurniture;
 using Application.Interfaces.Persistence;
+using Application.Popup;
 using Application.Users.Commands.UserAdd.UserFactory;
 using Application.Users.Commands.UserAddItem;
 using Application.Users.Commands.UserDelete;
@@ -28,6 +29,7 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(c
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IFurnitureRepository, FurnitureRepository>();
 builder.Services.AddTransient<IGetAllFurnituresListAdminQuery, GetAllFurnituresListAdminQuery>();
+builder.Services.AddTransient<ICreatePopup, CreatePopup>();
 builder.Services.AddTransient<IUserAddItem, UserAddItem>();
 builder.Services.AddTransient<IBuyFurniture, BuyFurniture>();
 builder.Services.AddTransient<IUserDelete, UserDelete>();
