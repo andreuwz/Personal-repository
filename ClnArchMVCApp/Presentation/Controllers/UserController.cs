@@ -1,5 +1,6 @@
 ﻿using Application.Furnitures.Queries.GetAllFurnituresList;
 using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
+using Application.Popup;
 using Application.Users;
 using Application.Users.Commands.UserAdd.UserFactory;
 using Application.Users.Commands.UserDelete;
@@ -9,6 +10,7 @@ using Application.Users.Queries.GetAllUsers;
 using Application.Users.Queries.GetUser;
 using Domain.Users;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Presentation.Controllers
 {
@@ -22,9 +24,12 @@ namespace Presentation.Controllers
         private readonly IGetAllFurnituresListQuery getAllFurnituresQuery;
         private readonly IUserDelete userDelete;
         private readonly IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery;
+        private readonly ICreatePopup createPopup;
 
         public UserController(IUserFactory userFactory
-            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete, IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery, IUserLogin userLogin)
+            , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser,
+            IGetAllFurnituresListQuery getAllFurnituresQuery, IUserDelete userDelete, IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery, 
+            IUserLogin userLogin, ICreatePopup createPopup)
         {
             this.userFactory = userFactory;
             this.userUpdate = userUpdate;
@@ -34,6 +39,7 @@ namespace Presentation.Controllers
             this.userDelete = userDelete;
             this.getAllFurnituresAdminQuery = getAllFurnituresAdminQuery;
             this.userLogin = userLogin;
+            this.createPopup = createPopup;
         }
 
         [HttpGet]
@@ -64,7 +70,7 @@ namespace Presentation.Controllers
                 else
                 {
                     TempData["msg"] = "Unknown credentials. Authentication fail!";
-                    return View("LoginFail");
+                    return View("SharedMessagePopup");
                 }
             }
             catch
@@ -111,10 +117,12 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
         {
+            TempData["msg"] = $"{user.Username} created successfully!";
+
             try
             {
                 userFactory.Execute(user.Username, user.Password, user.Firstname, user.IsAdmin, user.CreatedAt);
-                return View("Created", user);
+                return View("SharedMessagePopup");
             }
             catch
             {
@@ -133,10 +141,19 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
+            
+
             try
             {
                 var updatedUser = userUpdate.Execute(user);
-                return View("Edited", updatedUser);
+
+                var popupModel = createPopup.Create();
+                popupModel.Controller = "User/";
+                popupModel.Action = "UserAdminMenu";
+                popupModel.Root = Url.Action("",null,null,"https") + popupModel.Controller + popupModel.Action;
+                popupModel.Message = $"The user {updatedUser.Username} was edited successfully";
+
+                return View("ModalPopUp", popupModel);
             }
             catch
             {
@@ -160,11 +177,23 @@ namespace Presentation.Controllers
                 var deleteUser = getUser.Execute(id);
                 userDelete.Execute(id);
 
-                return View("Deleted", deleteUser);
+                var popupModel = createPopup.Create();
+                popupModel.Controller = "User/";
+                popupModel.Action = "UserAdminMenu";
+                popupModel.Root = Url.Action("", null, null, "https") + popupModel.Controller + popupModel.Action;
+                popupModel.Message = $"The user {deleteUser.Username} was deleted successfully";
+
+                return View("ModalPopUp", popupModel);
             }
             catch
             {
-                return View("ErrorPage");
+                var popupModel = createPopup.Create();
+                popupModel.Controller = "User/";
+                popupModel.Action = "UserAdminMenu";
+                popupModel.Root = Url.Action("", null, null, "https") + popupModel.Controller + popupModel.Action;
+                popupModel.Message = $"Deletion was not successful";
+
+                return View("ModalPopUp", popupModel);
             }
         }
 
