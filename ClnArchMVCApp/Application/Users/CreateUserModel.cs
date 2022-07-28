@@ -25,6 +25,7 @@ namespace Application.Users
         public string Firstname { get; set; }
         [Required]
         [ObsoleteDateValidation(ErrorMessage ="You cannot enter past dates (check time).")]
+        [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
     }
 }

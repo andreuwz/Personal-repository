@@ -7,8 +7,8 @@ namespace Application.ModelValidation
         public override bool IsValid(object? value)
         {
 
-            DateTime dateTime = Convert.ToDateTime(value);
-            if (dateTime < DateTime.Now)
+            DateTime dateTime = Convert.ToDateTime(value).Date;
+            if (dateTime < DateTime.Now.Date)
             {
                 return false;
             }
