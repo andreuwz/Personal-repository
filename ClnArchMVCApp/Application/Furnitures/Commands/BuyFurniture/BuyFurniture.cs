@@ -24,7 +24,7 @@ namespace Application.Furnitures.Commands.BuyFurniture
                 return foundModel;
             }
 
-            throw new Exception();
+            return null;
         }
     }
 }

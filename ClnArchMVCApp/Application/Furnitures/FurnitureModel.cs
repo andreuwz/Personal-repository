@@ -6,10 +6,13 @@ namespace Application.Furnitures
     {
         public int Id { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage ="Input consists of unallowed characters.")]
         public string Name { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Input consists of unallowed characters.")]
         public string Type { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Input consists of unallowed characters.")]
         public string Description { get; set; }
         [Required]
         public int Quantity { get; set; }
