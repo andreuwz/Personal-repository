@@ -22,9 +22,8 @@ namespace Application.Users.Commands.UserAdd.UserFactory
                 IsAdmin = isAdmin,
                 CreatedAt = createdAt
             };
-
-            userRepository.Add(newUser);
-            return newUser; 
+                userRepository.Add(newUser);
+                return newUser;
         }
     }
 }

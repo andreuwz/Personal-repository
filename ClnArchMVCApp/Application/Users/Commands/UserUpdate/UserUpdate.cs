@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Users;
 
 namespace Application.Users.Commands.UserUpdate
 {
@@ -18,7 +17,7 @@ namespace Application.Users.Commands.UserUpdate
             foundUser.Firstname = user.Firstname;
             foundUser.Username = user.Username;
 
-            userRepoistory.Update(foundUser);   
+            userRepoistory.Update(foundUser);
 
             return new CreateUserModel()
             {
