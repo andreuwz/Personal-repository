@@ -222,17 +222,5 @@ namespace Presentation.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult CheckUserName(string username)
-        {
-            var foundUser = getUserByUsername.Execute(username);
-
-            if (foundUser)
-            {
-                return Json(true);
-            }
-            return Json(false);  
-        }
-
     }
 }
