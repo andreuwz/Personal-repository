@@ -4,6 +4,6 @@ namespace Application.Users.Queries.GetAllUsers
 {
     public interface IGetAllUsers
     {
-        IEnumerable<UserModel> Execute();
+        IEnumerable<CreateUserModel> Execute();
     }
 }

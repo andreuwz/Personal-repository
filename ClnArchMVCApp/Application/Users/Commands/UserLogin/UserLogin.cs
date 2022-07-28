@@ -10,7 +10,7 @@ namespace Application.Users.Commands.UserLogin
         {
             this.userRepository = userRepository;
         }
-        public UserModel Execute(string username, string password)
+        public CreateUserModel Execute(string username, string password)
         {
             if (username == null || password == null)
             {
@@ -21,7 +21,7 @@ namespace Application.Users.Commands.UserLogin
 
             if (foundUser != null)
             {
-                return new UserModel()
+                return new CreateUserModel()
                 {
                     Username = foundUser.Username,
                     Firstname = foundUser.Firstname,
