@@ -2,6 +2,6 @@
 {
     public interface IGetUser
     {
-        UserModel Execute(int id);
+        CreateUserModel Execute(int id);
     }
 }

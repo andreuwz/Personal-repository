@@ -10,16 +10,17 @@ namespace Application.Users.Queries.GetUser
         {
             this.userRepository = userRepository;
         }
-        public UserModel Execute(int id)
+        public CreateUserModel Execute(int id)
         {
             var user = userRepository.Get(id);  
 
-            return new UserModel()
+            return new CreateUserModel()
             {
                 Username = user.Username,
                 CreatedAt = user.CreatedAt,
                 Firstname = user.Firstname,
-                IsAdmin = user.IsAdmin
+                IsAdmin = user.IsAdmin,
+                Id = user.Id
             };
         }
     }
