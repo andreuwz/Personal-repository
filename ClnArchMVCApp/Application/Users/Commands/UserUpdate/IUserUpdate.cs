@@ -4,6 +4,6 @@ namespace Application.Users.Commands.UserUpdate
 {
     public interface IUserUpdate
     {
-        UserModel Execute(User user);
+        CreateUserModel Execute(UpdateUserModel user);
     }
 }

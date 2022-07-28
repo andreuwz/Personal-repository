@@ -12,16 +12,15 @@ namespace Application.Users.Commands.UserUpdate
             this.userRepoistory = userRepoistory;
         }
 
-        public UserModel Execute(User user)
+        public CreateUserModel Execute(UpdateUserModel user)
         {
             var foundUser = userRepoistory.Get(user.Id);
             foundUser.Firstname = user.Firstname;
             foundUser.Username = user.Username;
-            foundUser.Password = user.Password;
 
-            userRepoistory.Update(foundUser);
+            userRepoistory.Update(foundUser);   
 
-            return new UserModel()
+            return new CreateUserModel()
             {
                 Username = foundUser.Username,
                 Firstname = foundUser.Firstname
