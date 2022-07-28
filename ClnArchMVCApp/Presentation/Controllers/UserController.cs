@@ -21,12 +21,12 @@ namespace Presentation.Controllers
         private readonly IUserDelete userDelete;
         private readonly IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery;
         private readonly ICreatePopup createPopup;
-        private readonly IGetUserByUsername getUserByUsername;
+ 
 
         public UserController(IUserFactory userFactory
             , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IUserDelete userDelete,
             IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery,
-            IUserLogin userLogin, ICreatePopup createPopup, IGetUserByUsername getUserByUsername)
+            IUserLogin userLogin, ICreatePopup createPopup)
         {
             this.userFactory = userFactory;
             this.userUpdate = userUpdate;
@@ -36,7 +36,6 @@ namespace Presentation.Controllers
             this.getAllFurnituresAdminQuery = getAllFurnituresAdminQuery;
             this.userLogin = userLogin;
             this.createPopup = createPopup;
-            this.getUserByUsername = getUserByUsername;
         }
 
         [HttpGet]
