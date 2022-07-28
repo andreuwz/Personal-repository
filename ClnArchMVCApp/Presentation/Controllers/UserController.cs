@@ -7,6 +7,7 @@ using Application.Users.Commands.UserLogin;
 using Application.Users.Commands.UserUpdate;
 using Application.Users.Queries.GetAllUsers;
 using Application.Users.Queries.GetUser;
+using Common.CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -21,7 +22,7 @@ namespace Presentation.Controllers
         private readonly IUserDelete userDelete;
         private readonly IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery;
         private readonly ICreatePopup createPopup;
- 
+
 
         public UserController(IUserFactory userFactory
             , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IUserDelete userDelete,
@@ -126,14 +127,20 @@ namespace Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    var createAction = userFactory.Execute(user.Username, user.Password, user.Firstname, user.IsAdmin, user.CreatedAt);
+                    var popupModel = createPopup.Create();
+                    popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
+                    popupModel.Message = $"User {user.Username} was created successfully!";
 
-                userFactory.Execute(user.Username, user.Password, user.Firstname, user.IsAdmin, user.CreatedAt);
-
-                var popupModel = createPopup.Create();
-                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
-                popupModel.Message = $"User {user.Username} was created successfully!";
-
-                return View("ModalPopUp", popupModel);
+                    return View("ModalPopUp", popupModel);
+                }
+                catch (UsernameNotUniqueException)
+                {
+                    ModelState.AddModelError("Username", "User with such username already exists!");
+                    return View("Create");
+                }
             }
             else
             {
@@ -145,9 +152,9 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-                var model = getUser.Execute(id);
-                return View(model);
-            
+            var model = getUser.Execute(id);
+            return View(model);
+
         }
 
         [HttpPost]
@@ -157,13 +164,21 @@ namespace Presentation.Controllers
 
             if (ModelState.IsValid)
             {
-                var updatedUser = userUpdate.Execute(user);
+                try
+                {
+                    var updatedUser = userUpdate.Execute(user);
 
-                var popupModel = createPopup.Create();
-                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
-                popupModel.Message = $"The user {updatedUser.Username} was edited successfully";
+                    var popupModel = createPopup.Create();
+                    popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
+                    popupModel.Message = $"The user {updatedUser.Username} was edited successfully";
 
-                return View("ModalPopUp", popupModel);
+                    return View("ModalPopUp", popupModel);
+                }
+                catch (UsernameNotUniqueException)
+                {
+                    ModelState.AddModelError("Username", "User with such username already exists!");
+                    return View("Edit");
+                }
             }
             else
             {

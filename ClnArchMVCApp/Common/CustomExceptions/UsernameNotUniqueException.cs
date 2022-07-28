@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Common.CustomExceptions
 {

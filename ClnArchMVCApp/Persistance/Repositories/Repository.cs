@@ -1,6 +1,8 @@
 ﻿using Application.Interfaces.Persistence;
+using Common.CustomExceptions;
 using Domain.Common;
 using Domain.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistance.Repositories
 {
@@ -15,8 +17,15 @@ namespace Persistance.Repositories
 
         public void Add(T entity)
         {
-            context.Set<T>().Add(entity);
-            Save();
+            try
+            {
+                context.Set<T>().Add(entity);
+                Save();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new UsernameNotUniqueException(e.Message, e);
+            }
         }
 
         public void Delete(T entity)
@@ -38,8 +47,16 @@ namespace Persistance.Repositories
 
         public void Update(T entity)
         {
-            context.Set<T>().Update(entity);
-            Save();
+            try
+            {
+                context.Set<T>().Update(entity);
+                Save();
+            }
+            
+            catch (DbUpdateException e)
+            {
+                throw new UsernameNotUniqueException(e.Message, e);
+            }
         }
 
         public void Save()
