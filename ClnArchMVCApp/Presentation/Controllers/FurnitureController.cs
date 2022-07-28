@@ -38,7 +38,7 @@ namespace Presentation.Controllers
         public ActionResult Index()
         {
             var model = getAllFurnitures.Execute();
-            return View(model);
+            return View("Index", model);
         }
 
         [HttpGet]
@@ -58,7 +58,7 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(FurnitureModel furnitureModel)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var newFurniture = furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description, furnitureModel.Quantity);
 
@@ -67,23 +67,22 @@ namespace Presentation.Controllers
                 popupModel.Message = $"The {newFurniture.Name} was created successfully!";
 
                 return View("ModalPopUp", popupModel);
-            }
-            catch
+            } 
+            else
             {
                 return View("Create");
-
             }
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var model = getFurniture.Execute(id);
                 return View(model);
             }
-            catch
+            else
             {
                 var popupModel = createPopup.Create();
                 popupModel.Root = Url.Action("FurnitureAdminMenu", "User", null, "https");
@@ -97,7 +96,7 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(FurnitureModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
                 updateFurniture.Execute(model);
 
@@ -107,7 +106,7 @@ namespace Presentation.Controllers
 
                 return View("ModalPopUp", popupModel);
             }
-            catch
+            else
             {
                 return View("Edit");
             }
@@ -117,12 +116,12 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var model = getFurniture.Execute(id);
                 return View(model);
             }
-            catch
+            else
             {
                 var popupModel = createPopup.Create();
                 popupModel.Root = Url.Action("FurnitureAdminMenu", "User", null, "https");
@@ -164,17 +163,17 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BuyFurniture(int id, int quantity)
         {
-            try
-            {
-                var model = buyFurniture.Execute(id, quantity);
+            var buyCheck = buyFurniture.Execute(id, quantity);
 
+            if (buyCheck != null)
+            {
                 var popupModel = createPopup.Create();
                 popupModel.Root = Url.Action("Index", "Furniture", null, "https");
                 popupModel.Message = $"You successfully bought {quantity} pieces of this item!";
 
                 return View("ModalPopUp", popupModel);
             }
-            catch
+            else
             {
                 var popupModel = createPopup.Create();
                 popupModel.Root = Url.Action($"BuyFurniture", "Furniture", id, "https");
@@ -183,7 +182,6 @@ namespace Presentation.Controllers
                 return View("ModalPopUp", popupModel);
             }
         }
-
 
     }
 }

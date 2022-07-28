@@ -1,5 +1,4 @@
-﻿using Application.Furnitures.Queries.GetAllFurnituresList;
-using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
+﻿using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
 using Application.Popup;
 using Application.Users;
 using Application.Users.Commands.UserAdd.UserFactory;
@@ -8,7 +7,6 @@ using Application.Users.Commands.UserLogin;
 using Application.Users.Commands.UserUpdate;
 using Application.Users.Queries.GetAllUsers;
 using Application.Users.Queries.GetUser;
-using Domain.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -23,11 +21,12 @@ namespace Presentation.Controllers
         private readonly IUserDelete userDelete;
         private readonly IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery;
         private readonly ICreatePopup createPopup;
+        private readonly IGetUserByUsername getUserByUsername;
 
         public UserController(IUserFactory userFactory
             , IUserUpdate userUpdate, IGetAllUsers getAllUsers, IGetUser getUser, IUserDelete userDelete,
             IGetAllFurnituresListAdminQuery getAllFurnituresAdminQuery,
-            IUserLogin userLogin, ICreatePopup createPopup)
+            IUserLogin userLogin, ICreatePopup createPopup, IGetUserByUsername getUserByUsername)
         {
             this.userFactory = userFactory;
             this.userUpdate = userUpdate;
@@ -37,6 +36,7 @@ namespace Presentation.Controllers
             this.getAllFurnituresAdminQuery = getAllFurnituresAdminQuery;
             this.userLogin = userLogin;
             this.createPopup = createPopup;
+            this.getUserByUsername = getUserByUsername;
         }
 
         [HttpGet]
@@ -49,7 +49,7 @@ namespace Presentation.Controllers
         public ActionResult Login(LoginModel loginModel)
         {
 
-            try
+            if (ModelState.IsValid)
             {
                 var foundUser = userLogin.Execute(loginModel.Username, loginModel.Password);
 
@@ -67,7 +67,7 @@ namespace Presentation.Controllers
                 {
                     var popupModel = createPopup.Create();
                     popupModel.Root = Url.Action("Index", "Furniture", null, "https");
-                    popupModel.Message = $"You logged in as a regular user.";
+                    popupModel.Message = $"You are logged in as a regular user.";
 
                     return View("ModalPopUp", popupModel);
 
@@ -81,7 +81,7 @@ namespace Presentation.Controllers
                     return View("ModalPopUp", popupModel);
                 }
             }
-            catch
+            else
             {
                 return View("Login");
             }
@@ -123,11 +123,11 @@ namespace Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(User user)
+        public ActionResult Create(CreateUserModel user)
         {
-
-            try
+            if (ModelState.IsValid)
             {
+
                 userFactory.Execute(user.Username, user.Password, user.Firstname, user.IsAdmin, user.CreatedAt);
 
                 var popupModel = createPopup.Create();
@@ -136,37 +136,27 @@ namespace Presentation.Controllers
 
                 return View("ModalPopUp", popupModel);
             }
-            catch
+            else
             {
                 return View("Create");
             }
+
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            try
-            {
                 var model = getUser.Execute(id);
                 return View(model);
-            }
-            catch
-            {
-                var popupModel = createPopup.Create();
-                popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
-                popupModel.Message = $"The user was not found!";
-
-                return View("ModalPopUp", popupModel);
-            }
+            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(UpdateUserModel user)
         {
 
-
-            try
+            if (ModelState.IsValid)
             {
                 var updatedUser = userUpdate.Execute(user);
 
@@ -176,7 +166,7 @@ namespace Presentation.Controllers
 
                 return View("ModalPopUp", popupModel);
             }
-            catch
+            else
             {
                 return View("Edit");
             }
@@ -185,12 +175,12 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var deleteuser = getUser.Execute(id);
                 return View(deleteuser);
             }
-            catch
+            else
             {
                 var popupModel = createPopup.Create();
                 popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
@@ -198,14 +188,14 @@ namespace Presentation.Controllers
 
                 return View("ModalPopUp", popupModel);
             }
-            
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, int a)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var deleteUser = getUser.Execute(id);
                 userDelete.Execute(id);
@@ -216,7 +206,7 @@ namespace Presentation.Controllers
 
                 return View("ModalPopUp", popupModel);
             }
-            catch
+            else
             {
                 var popupModel = createPopup.Create();
                 popupModel.Root = Url.Action("UserAdminMenu", "User", null, "https");
@@ -230,6 +220,18 @@ namespace Presentation.Controllers
         public ActionResult UserItems()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult CheckUserName(string username)
+        {
+            var foundUser = getUserByUsername.Execute(username);
+
+            if (foundUser)
+            {
+                return Json(true);
+            }
+            return Json(false);  
         }
 
     }
