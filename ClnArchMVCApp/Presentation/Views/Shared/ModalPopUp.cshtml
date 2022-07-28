@@ -1,52 +1,61 @@
 ﻿@model Application.Popup.PopupModel
 @{
-    
-    var root = @Url.Action("",null,null,"http");
+
+    var root = @Url.Action("", null, null, "http");
 }
 
-<title>Title</title>  
+<title>Title</title>
 
-<div>  
-    <div class="modal fade" tabindex="-1" id="loginModal"  
-            data-keyboard="false" data-backdrop="static">  
-        <div class="modal-dialog modal-lg">  
-            <div class="modal-content">  
-                <div class="modal-header">  
-                    <button id="buttonClose" type="button" class="close">  
-                        ×  
-                    </button>  
-                    <h4 class="modal-title">Informative message.</h4>  
-                </div>  
-                <div class="modal-body">  
-                    <h4>@Model.Message</h4> 
-                </div>  
-                <div class="modal-footer">  
-                    <button id="okButton" type="submit" class="btn btn-primary button button4" href="@Model.Root">Ok</button>  
-                </div>  
-            </div>  
-        </div>  
-    </div>  
-</div>  
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">  </script>  
-    <script src="bootstrap/js/bootstrap.min.js"></script>  
+<div>
+    <div class="modal fade" tabindex="-1" id="loginModal"
+         data-keyboard="false" data-backdrop="static" href="@Model.Root">
+        <div class="modal-dialog modal-lg">
+            <div id="modalContent" class="modal-content">
+                <div class="modal-header">
+                    <button id="buttonClose" type="button" class="close">
+                        ×
+                    </button>
+                    <h4 class="modal-title">Informative message.</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>@Model.Message</h4>
+                </div>
+                <div class="modal-footer">
+                    <button id="okButton" type="submit" class="btn btn-primary button button4">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">  </script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">  
-        $(document).ready(function () {  
+<script type="text/javascript">
+    $(document).ready(function() {
 
-            $(window).on('load', function() {
+        $(window).on('load', function() {
 
             $('#loginModal').modal('show');
-            });
+        });
 
-            $("#okButton").click(function () {  
-                var href = $(this).attr("href");
+        $("#okButton").click(function() {
+            var href = $('#loginModal').attr("href");
+            window.location.href = href;
+        });
+
+        $('#buttonClose').click(function() {
+            $('#loginModal').modal('hide');
+
+        });
+
+        $("#loginModal").click(function(event) {
+
+            var popupBody = document.getElementById("modalContent")
+            if ($("#loginModal").is(":visible") && !popupBody.contains(event.target)) {
+                var href = $('#loginModal').attr("href");
                 window.location.href = href;
-            });
-            
-            $('#buttonClose').click(function() {
-                $('#loginModal').modal('hide');
+            }
+        });
 
-            });
-
-        });  
-    </script> 
+    });
+</script> 
