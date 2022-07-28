@@ -36,6 +36,7 @@ namespace Persistance
             modelBuilder.Entity<User>().HasKey(p => p.Id);
             modelBuilder.Entity<User>().Property(p => p.Firstname).IsRequired().HasMaxLength(20);
             modelBuilder.Entity<User>().Property(p => p.Username).IsRequired().HasMaxLength(10);
+            modelBuilder.Entity<User>().HasIndex(p => p.Username).IsUnique();
             modelBuilder.Entity<User>().Property(p => p.IsAdmin).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(20);
            
