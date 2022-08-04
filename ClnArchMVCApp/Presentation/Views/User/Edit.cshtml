@@ -18,11 +18,13 @@
                 <label asp-for="Username" class="control-label"></label>
                 <input asp-for="Username" class="form-control" />
                 <span asp-validation-for="Username" class="text-danger"></span>
+                <span class="text-danger" id="usernameCustomSpan" style="visibility : collapse"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Firstname" class="control-label"></label>
                 <input asp-for="Firstname" class="form-control" />
                 <span asp-validation-for="Firstname" class="text-danger"></span>
+                <span class="text-danger" id="firstnameCustomSpan" style="visibility : collapse"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -38,5 +40,28 @@
 @section Scripts{
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+     <script>
+    $("#Username").keyup(function() {
+        var charLength = $(this).val().length;
+        var charLimit = $(this).attr("MaxLength");
+
+          if (charLength < charLimit) {
+            $("#usernameCustomSpan").css('visibility', 'visible');
+            $("#usernameCustomSpan").text("You have " + (charLimit - charLength) + " characters left.");
+          }
+    });
+    </script>
+
+    <script>
+    $("#Firstname").keyup(function() {
+        var charLength = $(this).val().length;
+        var charLimit = $(this).attr("MaxLength");
+
+          if (charLength < charLimit) {
+            $("#firstnameCustomSpan").css('visibility', 'visible');
+            $("#firstnameCustomSpan").text("You have " + (charLimit - charLength) + " characters left.");
+          }
+    });
+    </script>
 }
 
