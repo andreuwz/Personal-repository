@@ -12,6 +12,7 @@ namespace Application.Furnitures
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Input consists of unallowed characters.")]
         public string Type { get; set; }
         [Required]
+        [MaxLength(150)]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Input consists of unallowed characters.")]
         public string Description { get; set; }
         [Required]
