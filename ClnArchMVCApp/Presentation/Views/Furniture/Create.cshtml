@@ -26,6 +26,7 @@
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" id="Description"/>
                 <span asp-validation-for="Description" class="text-danger"></span>
+                <br/>
                 <span class="text-danger" id="warningSpan" style="visibility : collapse"></span>
             </div>
              <div class="form-group">
@@ -50,10 +51,9 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
     <script>
-
     $("#Description").keyup(function() {
         var charLength = $(this).val().length;
-        var charLimit = 150;
+        var charLimit = $(this).attr("MaxLength");
 
           if (charLength < charLimit) {
             $("#warningSpan").css('visibility', 'visible');
