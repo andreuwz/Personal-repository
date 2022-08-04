@@ -58,6 +58,7 @@ namespace Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(FurnitureModel furnitureModel)
         {
+            
             if (ModelState.IsValid)
             {
                 var newFurniture = furnitureFactory.Execute(furnitureModel.Name, furnitureModel.Type, furnitureModel.Description, furnitureModel.Quantity);

@@ -1,4 +1,5 @@
-﻿using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
+﻿using Application;
+using Application.Furnitures.Queries.GetAllFurnituresListAdmin;
 using Application.Popup;
 using Application.Users;
 using Application.Users.Commands.UserAdd.UserFactory;
@@ -38,7 +39,7 @@ namespace Presentation.Controllers
             this.userLogin = userLogin;
             this.createPopup = createPopup;
         }
-
+      
         [HttpGet]
         public ActionResult Login()
         {
@@ -48,7 +49,7 @@ namespace Presentation.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
-
+            ViewData["message"] = 3;
             if (ModelState.IsValid)
             {
                 var foundUser = userLogin.Execute(loginModel.Username, loginModel.Password);
