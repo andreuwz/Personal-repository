@@ -49,7 +49,6 @@ namespace Presentation.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
-            ViewData["message"] = 3;
             if (ModelState.IsValid)
             {
                 var foundUser = userLogin.Execute(loginModel.Username, loginModel.Password);
