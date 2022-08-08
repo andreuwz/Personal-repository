@@ -3,14 +3,16 @@
 
 }
 
-<h1>Admin menu - Please choose the next admin menu.</h1>
+<h1 class="text-center">Admin menu - Please choose the next admin menu.</h1>
 
-<div>
-    <p>
-        <a asp-action="UserAdminMenu">Users menu</a>
-    </p>
-
-    <p>
-        <a asp-action="FurnitureAdminMenu">Furnitures menu</a>
-    </p>
+<div class="col text-center">
+   <form>
+        <input type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("UserAdminMenu", "User") + "'");" value="User menu"/> 
+    </form>
+</div>
+</br>
+<div class="col text-center">
+   <form>
+        <input type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("FurnitureAdminMenu", "User") + "'");" value="Furniture menu" /> 
+    </form>
 </div>

@@ -4,15 +4,17 @@
     ViewData["Title"] = "Admin menu - Users";
 }
 
-<h1>Welcome to the User Admin Menu</h1>
+<h1 class="text-center">Welcome to the User Admin Menu</h1>
 
-<p>
-    <a asp-action="Create">Click here to create new user</a>
-</p>
+<div class="col text-center">
+    <form>
+        <input type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Create", "User") + "'");" value="Create new user" />
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>
-           
+
             <th>
                 @Html.DisplayNameFor(model => model.Username)
             </th>
@@ -66,9 +68,12 @@
                 }
             </tr>
         }
-
-        <p>
-            <a asp-action="AdminInitialMenu" asp-controller="User">Back to the Admin menu</a>
-        </p>
     </tbody>
+
 </table>
+</br>
+<div>
+    <form>
+        <input type="button" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("AdminInitialMenu", "User") + "'");" value="Back to previous menu" />
+    </form>
+</div>

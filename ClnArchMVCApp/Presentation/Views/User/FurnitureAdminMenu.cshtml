@@ -6,12 +6,12 @@
 
 <h1>Furniture Admin menu</h1>
 
-<p>
-    <a asp-action="Create" asp-controller="Furniture">Click here to create new furniture</a>
-</p>
-<p>
-    <a asp-action="AdminInitialMenu" asp-controller="User">Back to previous menu</a>
-</p>
+<div class="col text-center">
+   <form>
+        <input type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Create", "Furniture") + "'");" value="Create new furniture" /> 
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -61,3 +61,9 @@
 }
     </tbody>
 </table>
+</br>
+<div>
+   <form>
+        <input type="button" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("AdminInitialMenu", "User") + "'");" value="Back to previous menu" /> 
+    </form>
+</div>
