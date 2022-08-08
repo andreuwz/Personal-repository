@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces.Persistence;
-using Domain.Users;
 
 namespace Application.Users.Queries.GetAllUsers
 {
