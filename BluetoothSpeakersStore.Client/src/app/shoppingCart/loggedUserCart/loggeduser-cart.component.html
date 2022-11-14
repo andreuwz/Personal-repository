@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<style>
+button {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  background-color: #d83c3c;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+    }
+    table {
+        border-collapse: collapse;
+        width: 60%;
+        font-family: 'Courier New', Courier, monospace;
+        float: right;
+    }
+    th {
+        background-color: #04AA6D;
+        text-align: center;
+    }
+    td {
+        text-align: center;
+    }
+    img {
+        width: 30px;
+        height: 30px;
+    }
+    .input{
+        font-weight: bold;
+    }
+    .tableHeading {
+        text-align: center;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    .cartInfo {
+        float:left;
+    }
+    ul {
+        border: 5px solid rgb(125, 185, 113);
+        font-family: 'Courier New', Courier, monospace;
+    }
+    .cartInfoHeading{
+        font-weight: bold;
+        text-align: center;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    .checkout {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: #4a95d2;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 0;
+    outline: none;
+    padding: 8px .8em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+    margin-right: 20px;
+}
+.removeCart {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: #d83c3c;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 0;
+    outline: none;
+    padding: 8px .8em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+</style>
+
+<body>
+<div class="cartInfo">
+<h3 class="cartInfoHeading">This is your cart</h3>
+<ul>
+    <li>CartId: 
+        <div class="input">
+            {{loggedUserCartModel.cartId}}
+        </div>
+    </li>
+    <li>Created at: 
+        <div class="input">
+        {{loggedUserCartModel.createdAt}}
+        </div>
+    </li>
+    <li>Created by: 
+        <div class="input">
+            {{loggedUserCartModel.creatorName}}
+        </div>
+        </li>
+    <li>Total sum: 
+        <div class="input">
+            {{loggedUserCartModel.totalSum}}
+        </div>
+    </li>
+    <li>Your balance: 
+        <div class="input">
+            {{loggedUserInfoModel.balance}}
+        </div>
+    </li>
+    <button *ngIf="loggedUserCartModel.totalSum > 0" class="checkout" (click)="executeConfirmCartCheckout()">Cart Checkout</button>
+    <button *ngIf="loggedUserCartModel.cartId != 'Unavailable'" class="removeCart" (click)="executeConfirmationDeleteLoggedUserCart()">Remove cart</button>
+</ul>
+</div>
+<div class="tableHolder">
+<h3 class="tableHeading">List of items in the cart</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Product Id</th>
+            <th>Product name</th>
+            <th>Product price</th>
+            <th>Product quantity</th>
+            <th>Additional information</th>
+            <th>
+                <img src="https://as2.ftcdn.net/v2/jpg/00/98/26/11/1000_F_98261175_Sv69O3rZsHApYkjAdrWbgQixYHwyZyOr.jpg">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of loggedUserCartProducts">
+            <td>{{product.productId}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.comment}}</td>
+            <td>
+                <button (click)="executeRemoveProductInCartConfirmation(product.productId)">Remove product from cart</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<style>
+button{
+  background-color: #cabd2c7d; /* Green */
+  border: 2px solid rgb(95, 6, 6);
+  color: rgb(240, 243, 241);
+  padding: 0px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  border-radius:12px;
+  transition-duration: 0.4s;
+  height: 50px;
+  width: 90px;
+  vertical-align: top;
+  margin-right: 15px;
+  font-family: 'Courier New', Courier, monospace;
+}
+form {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.button:hover {
+  background-color: #ac8383; /* Green */
+  color: white;
+}
+.button-save:hover {
+  background-color: #cbce1c; /* Green */
+  color: white;
+}
+span {
+  float: left;
+  font-weight: bold;
+  color: rgb(255, 251, 0);
+}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  margin: 0 auto;
+  width: 50%;
+  border-radius: 5px;
+  background-color: #c57f7a;
+  padding: 20px;
+  text-align: center;
+}
+
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+h3{
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+}
+</style>
+<body>
+
+<h3>Edit your account</h3>
+
+<div>
+  <form [formGroup]="editLoggedUserForm">
+    <label for="uname">Username</label>
+    <input type="text" id="uname" name="username"  formControlName="userName">
+    <span *ngIf="userName?.errors?.['required']">This field is mandatory</span>
+    <span *ngIf="userName?.errors?.['maxlength']">You exceeded the maximum of 15 characters for this field</span>
+    <br><br>
+
+    <label for="fname">First name</label>
+    <input type="text" id="fname" name="firstname" formControlName="firstname">
+    <span *ngIf="firstname?.errors?.['required']">This field is mandatory</span>
+    <span *ngIf="firstname?.errors?.['pattern']">Only letters are allowed in this field</span>
+    <span *ngIf="firstname?.errors?.['maxlength']">You exceeded the maximum of 25 characters for this field</span>
+    <br><br>
+
+    <label for="lname">Last name</label>
+    <input type="text" id="lname" name="lastname" formControlName="lastname">
+    <span *ngIf="lastname?.errors?.['required']">This field is mandatory</span>
+    <span *ngIf="lastname?.errors?.['pattern']">Only letters are allowed in this field</span>
+    <span *ngIf="lastname?.errors?.['maxlength']">You exceeded the maximum of 25 characters for this field</span>
+    <br><br>
+
+    <label for="email">Email</label>
+    <input type="text" id="email" name="email"  formControlName="email">
+    <span *ngIf="email?.errors?.['required']">This field is mandatory</span>
+    <span *ngIf="email?.errors?.['email']">This is not a valid email</span>
+    <span *ngIf="email?.errors?.['minlength']">5 characters is the minimum for this field</span>
+    <br><br>
+
+    <label for="password">Enter new password or repeat the current one</label>
+    <input type="password" id="password" name="password"  formControlName="password">
+    <span *ngIf="password?.errors?.['required']">This field is mandatory</span>
+    <span *ngIf="password?.errors?.['pattern']">The password should contain at least 8 characters, one digit and one special character</span><br><br>
+
+    <label for="repeatPassword">Repeat password</label>
+    <input type="password" id="repeatPassword" name="repeatPassword"  formControlName="repeatPassword">
+    <span *ngIf="repeatPassword?.errors?.['required']">This field is mandatory</span>
+    <span *ngIf="repeatPassword?.errors?.['pattern']">The password should contain at least 8 characters, one digit and one special characterl</span>
+    <br><br>
+
+    <label for="balance">Balance</label>
+    <input type="text" id="balance" name="balance"  formControlName="balance">
+    <span *ngIf="balance?.errors?.['required']">This field is mandatory</span>
+    <span *ngIf="balance?.errors?.['pattern']">This is not a valid balance sum</span><br><br>
+
+    <div>
+    <button class="button-save" type="submit" [disabled]="!editLoggedUserForm.valid" (click)="executeLoggedUserAccountEdit()">Save changes</button> 
+    <button class="button" type="button" routerLink="/Products">Cancel</button> 
+  </div>
+  </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+th, td {
+  text-align: center ;
+  padding: 8px;
+}
+.id {
+  font-weight: bold;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #04AA6D;
+  color: white;
+}
+input {
+    width: 40px;
+}
+
+button {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  background-color: #539f4c;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+.danger{
+  background-color: rgb(189, 41, 41);
+}
+.warning {
+  background-color: rgb(167, 162, 0);
+}
+.class{
+  float: left;
+}
+.create {
+  margin: 0;
+  position: absolute;
+  top: 12%;
+  left: 6%;
+}
+
+h2 {
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+img{ 
+    width: 30px;
+    height: 30px;
+}
+</style>
+</head>
+<body>
+ 
+<h2>
+  Admin Menu - List of products</h2>
+<div>
+  <button class="create" routerLink="/CreateProduct">Create new product</button>
+  <br><br>
+</div>
+<table>
+    <thead>
+  <tr>
+    <th>Product Id</th>
+    <th>Product Name</th>
+    <th>Price</th>
+    <th>Stock Quantity</th>
+    <th>Creator Id</th>
+    <th>Creator Name</th>
+    <th>Created At</th>
+    <th>Modified At</th>
+    <th>Modifier Name</th>
+    <th>
+      <img src="https://toppng.com/uploads/preview/edit-icon-icon-11553444934axir52hn6q.png">
+    </th>
+    <th>
+      <img src="https://as2.ftcdn.net/v2/jpg/00/98/26/11/1000_F_98261175_Sv69O3rZsHApYkjAdrWbgQixYHwyZyOr.jpg">
+    </th>
+</thead>
+<tbody>
+    <tr *ngFor='let product of productsAdminModel'>
+    <td class="id">{{product.id}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.price}}</td>
+    <td>{{product.quantity}}</td>
+    <td>{{product.creatorId}}</td>
+    <td>{{product.creatorName}}</td>
+    <td>{{product.createdAt}}</td>
+    <td>{{product.modifiedAt}}</td>
+    <td>{{product.modifierName}}</td>
+    <td>
+      <button class="warning" (click)="executeGetProductById(product.id)">Edit product</button>
+    </td>
+    <td>
+      <button class="danger" (click)="executeProductDelete(product.id)">Delete product</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+</body>
+</html>
+
+

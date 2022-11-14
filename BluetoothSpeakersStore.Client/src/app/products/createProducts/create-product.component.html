@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body {
+    margin: 0px;
+    width: 100%;
+    text-align: center;
+  }
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display:list-item;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+form {
+  margin-left:0px;
+  margin-right: 0px;
+  margin: 0 auto;
+  font-family: 'Courier New', Courier, monospace;
+  }
+
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: list-item;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  
+}
+
+button {
+      background-color: #8ebf42;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grabbing;
+      width: 20%;
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
+      
+      }
+      .danger {background-color: #f44336;} /* Red */
+      .danger:hover {background: #da190b;} 
+      
+
+input[type=email], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: list-item;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h3 {
+    font-weight: bold;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  color: #339538;
+}
+
+input[type=number], select {
+  width:100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: list-item;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+label {
+    font-weight: bold;
+}
+
+
+div {
+  margin: 0 auto;
+  width: 50%;
+  border-radius: 5px;
+  background-color: #7a917d;
+  padding: 20px;
+  text-align: center;
+}
+button{
+  width: 150%;
+}
+.btn-warning {
+    background-color: initial;
+  background-image: linear-gradient(-180deg, #58bc5f, #6bca66);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  height: 40px;
+  line-height: 40px;
+  font-size: 12px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 9;
+  border: 0;
+  transition: box-shadow .2s;
+  width: 70px;  
+}
+.btn-warning:hover{
+    box-shadow: rgba(15, 8, 5, 0.5) 0 3px 8px;
+}
+.btn-danger {
+    background: #b0332f;
+    border: 1px solid #716464;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    width: 90px;
+  } /* Red */
+  .btn-danger:hover {
+    background-color:dimgrey;
+  background-position: 0 0;
+  color: #FF4742;
+  }
+  
+span{
+  color: #aed421;
+  font-weight: bold;
+}
+</style>
+<body>
+
+<h3>Create new product in the database</h3>
+
+<div>
+  <form [formGroup]="createProductForm">
+    <label for="uname">Product name</label>
+    <input class="form-control" type="text" id="uname" name="username" formControlName="productName">
+    <span *ngIf="productName?.errors?.['required']">This field is mandatory<br></span>
+    <span *ngIf="productName?.errors?.['maxlength']">You exceeded the maximum of 50 characters for this field<br></span>
+
+    <label for="fname">Product price</label>
+    <input class="form-control" type="number" id="fname" name="firstname" formControlName="productPrice">
+    <span *ngIf="productPrice?.errors?.['required']">This field is mandatory  <br></span>
+    <span *ngIf="productPrice?.errors?.['min']">The minimum value of this field is 0<br></span>
+
+    <label for="lname">Product quantity</label>
+    <input class="form-control" type="number" id="lname" name="lastname" formControlName="productQuantity">
+    <span *ngIf="productQuantity?.errors?.['required']">This field is mandatory   <br></span>
+    <span *ngIf="productQuantity?.errors?.['min']">The minimum value of this field is 0<br></span>
+
+  <div>
+    <button type="submit" class="btn-warning" (click)="executeCreateProduct()" [disabled]="!createProductForm.valid">Create</button> <br>
+    <button type="button"  class="btn-danger" routerLink="/AdminProducts">Cancel</button> 
+  </div>
+  </form>
+</div>  
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+<div class="topnav">
+    <a class="active" routerLink='/Login' style="float:right">{{isLoggedIn ? 'Logout' : 'Login'}}</a>
+    <a style="float:right" routerLink='/EditLoggedUser' *ngIf="isLoggedIn">Edit your account</a>
+    <a *ngIf="!isLoggedIn" routerLink='/Register'>Register</a>
+    <a routerLink='/Products'>Products</a>
+    <a routerLink='/Users' *ngIf="isLoggedInAdmin">User menu</a>
+    <a *ngIf="isLoggedInAdmin" routerLink="/AdminProducts">Product menu</a>
+    <a  *ngIf="isLoggedIn" routerLink="/LoggedUserCart">Shopping Cart</a>
+  </div>

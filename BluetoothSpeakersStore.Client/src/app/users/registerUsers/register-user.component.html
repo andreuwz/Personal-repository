@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body {
+    margin: 0px;
+    width: 100%;
+    text-align: center;
+  }
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display:list-item;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+form {
+  margin-left:0px;
+  margin-right: 0px;
+  margin: 0 auto;
+  font-family: 'Courier New', Courier, monospace;
+  }
+
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: list-item;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  
+}
+
+button {
+      background-color: #8ebf42;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grabbing;
+      width: 60px;
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
+      
+      }
+      .danger {
+        background-color: #f44336;
+        width: 60px;
+      } /* Red */
+      .danger:hover {background: #da190b;} 
+      button[type=submit] {
+        width: 80px;
+      }
+      
+
+input[type=email], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: list-item;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h3 {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  color: #339538;
+  font-weight: bold;
+}
+
+input[type=number], select {
+  width:100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: list-item;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+div {
+  margin: 0 auto;
+  width: 50%;
+  border-radius: 5px;
+  background-color: #7a917d;
+  padding: 20px;
+  text-align: center;
+}
+
+button{
+  width: 150%;
+}
+span{
+  color: #aed421;
+  font-weight: bold;
+} 
+label {
+  font-weight: bold;
+}
+</style>
+<body>
+
+<h3>Register your new account</h3>
+
+<div>
+  <form [formGroup]="registerUserForm">
+    <label for="uname">Username</label>
+    <input class="form-control" type="text" id="uname" name="username" formControlName="userName">
+    <span *ngIf="userName?.errors?.['required']">This field is mandatory<br></span>
+    <span *ngIf="userName?.errors?.['maxlength']">You exceeded 15 characters for this field<br></span>
+
+    <label for="fname">First name</label>
+    <input class="form-control" type="text" id="fname" name="firstname" formControlName="firstname">
+    <span *ngIf="firstname?.errors?.['required']">This field is mandatory<br></span>
+    <span *ngIf="firstname?.errors?.['pattern']">Only letters are allowed in this field   <br></span>
+    <span *ngIf="firstname?.errors?.['maxlength']">You exceeded 25 characters for this field   <br></span>
+
+    <label for="lname">Last name</label>
+    <input class="form-control" type="text" id="lname" name="lastname" formControlName="lastname">
+    <span *ngIf="lastname?.errors?.['required']">This field is mandatory<br></span>
+    <span *ngIf="lastname?.errors?.['pattern']">Only letters are allowed in this field<br></span>
+    <span *ngIf="lastname?.errors?.['maxlength']">You exceeded 25 characters for this field<br></span>
+
+    <label for="password">Password</label>
+    <input class="form-control" type="password" id="password" name="password"  formControlName="password">
+    <span *ngIf="password?.errors?.['required']">This field is mandatory <br></span>
+    <span *ngIf="password?.errors?.['pattern']">The password should contain at least 8 characters, one digit and one special character <br></span>
+
+    <label for="repeatpass">Repeat password</label>
+    <input class="form-control" type="password" id="repeatpass" name="repeatpass"  formControlName="repeatPassword">
+    <span *ngIf="repeatPassword?.errors?.['required']">This field is mandatory <br></span>
+    <span *ngIf="repeatPassword?.errors?.['pattern']">The password should contain at least 8 characters, one digit and one special character <br></span>
+
+    <label for="email">Email</label>
+    <input class="form-control" type="email" id="email" name="email" formControlName="email">
+    <span *ngIf="email?.errors?.['required']">This field is mandatory <br></span>
+    <span *ngIf="email?.errors?.['email']">This is not a valid email <br></span>
+    <span *ngIf="email?.errors?.['minlegth']">5 characters is the minumum for this field <br></span>
+
+    <label for="balance">Balance</label>
+    <input class="form-control" type="number" id="balance" name="balance" formControlName="balance">
+    <span *ngIf="balance?.errors?.['required']">This field is mandatory<br></span>
+    <span *ngIf="balance?.errors?.['min']">The minimum value for this field is 0<br></span>
+    
+  <div class="buttons">
+    <button type="submit" (click)="executeRegistration()" [disabled]="!registerUserForm.valid">Register</button> 
+    <br>
+    <button type="button"  class="btn danger" routerLink="/Products">Cancel</button> 
+  </div>
+  </form>
+</div>  
+
+</body>
+</html>
