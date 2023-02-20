@@ -5,22 +5,19 @@ import { SessionService } from "../shared/sessionInfo/session.service";
 import { IGetUserCartModel } from "./shoppingCartModels/getUserCartModel";
 import { IInCartProductModel } from "./shoppingCartModels/inCartProductsModel";
 
-@Injectable({
-    providedIn: 'root'
-})
-
+@Injectable()
 export class ShoppingCartService {
     constructor(private httpClient: HttpClient,
                 private sessionService: SessionService) {}
     
-    private getLoggedUserCartUrl = 'https://localhost:7193/Cart/LoggedUser';
-    private getLoggedUserCartProductsUrl= 'https://localhost:7193/Cart/LoggedUser/ProductsInCart';
-    private removeProductFromCartUrl = 'https://localhost:7193/Cart/LoggedUser/ProductInCart';
-    private cartCheckoutUrl = 'https://localhost:7193/Cart/LoggedUser/CartCheckout';
-    private removeLoggedUserCartUrl = 'https://localhost:7193/Cart/LoggedUser';
-    private getUserCartUrl = 'https://localhost:7193/Cart/Admin';
-    private getUserProductsInCartUrl = 'https://localhost:7193/Cart/Admin/ProductsInCart';
-    private deleteCartByIdUrl= 'https://localhost:7193/Cart/Admin';
+    private getLoggedUserCartUrl = 'https://localhost:7024/Cart/LoggedUser';
+    private getLoggedUserCartProductsUrl= 'https://localhost:7024/Cart/LoggedUser/ProductsInCart';
+    private removeProductFromCartUrl = 'https://localhost:7024/Cart/LoggedUser/ProductInCart';
+    private cartCheckoutUrl = 'https://localhost:7024/Cart/LoggedUser/CartCheckout';
+    private removeLoggedUserCartUrl = 'https://localhost:7024/Cart/LoggedUser';
+    private getUserCartUrl = 'https://localhost:7024/Cart/Admin';
+    private getUserProductsInCartUrl = 'https://localhost:7024/Cart/Admin/ProductsInCart';
+    private deleteCartByIdUrl= 'https://localhost:7024/Cart/Admin';
 
     removeCartById(id: string) :Observable<any>{
         this.sessionService.isSecurityNeeded = true;

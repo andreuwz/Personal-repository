@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Catalogue.API.Common\Catalogue.API.Common.csproj" />
+    <ProjectReference Include="..\Catalogue.API.Dto\Catalogue.API.Dto.csproj" />
+    <ProjectReference Include="..\Catalogue.API.Persistence\Catalogue.API.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

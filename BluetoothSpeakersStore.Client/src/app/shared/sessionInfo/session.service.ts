@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
 import { Observable, Subject } from "rxjs";
-import { EncryptionService } from "src/app/authentication/encryption.service";
+import { EncryptionService } from "src/app/shared/encryption.service";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +17,7 @@ export class SessionService {
                 private cookieService: CookieService) {
         this.loggedInEvent = new Subject<boolean>();
     }
-
+    
     extractCookieData() {
         this.authCookie = this.cookieService.get('cookieAlpha');
         this.refreshCookie = this.cookieService.get('cookieRomeo');
@@ -38,6 +38,22 @@ export class SessionService {
         localStorage.setItem('infor', this.encryptionService.encryptionAES(''));
         this.loggedInEvent.next(false);
        }
+    }
+
+    isLoggedUserMasterAdmin(): boolean {
+        const decryptedRoles = localStorage.getItem('infor');
+
+        if (decryptedRoles == null) { 
+            return false;
+        }
+        
+        const roles = this.encryptionService.decryptionAES(decryptedRoles);
+        
+        if (roles.includes('MasterAdmin')) { 
+            return true;
+        }
+
+        return false;
     }
 
     public get isSecurityNeeded(): boolean {

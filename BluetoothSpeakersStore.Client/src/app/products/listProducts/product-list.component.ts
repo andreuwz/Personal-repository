@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup} from "@angular/forms";
 import { Subscription } from "rxjs";
-import { EncryptionService } from "src/app/authentication/encryption.service";
+import { EncryptionService } from "src/app/shared/encryption.service";
 import { AlertService } from "src/app/shared/alerts/alertService";
 import { IGetProductModel } from "../productModels/getProductModel";
-import { ProductService } from "../products.service";
+import { ProductService } from "../product.service";
 
 @Component({
     selector: 'product-list',

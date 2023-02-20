@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { AlertService } from "src/app/shared/alerts/alertService";
 import { IGetProductAdminModel } from "../productModels/getProductAdminModel";
-import { ProductService } from "../products.service";
+import { ProductService } from "../product.service";
 
 @Component ({
     selector: 'admin-productsmenu',

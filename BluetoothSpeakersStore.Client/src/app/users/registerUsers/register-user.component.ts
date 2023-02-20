@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { ILoginOutputModel } from "src/app/authentication/login/loginOuputModel";
 import { CookieService } from "ngx-cookie-service";
-import { EncryptionService } from "src/app/authentication/encryption.service";
+import { EncryptionService } from "src/app/shared/encryption.service";
 
 @Component({
     selector: 'register-user',
@@ -22,8 +22,7 @@ export class RegisterUserComponent implements OnInit, OnDestroy{
                 private router: Router,
                 private alertService: AlertService,
                 private sessionService: SessionService,
-                private cookieService: CookieService,
-                private encryptionService: EncryptionService) {
+                private cookieService: CookieService) {
     this.registerUserModel = {userName:'Enter username', firstname: 'Enter first name', lastname: 'Enter last name', 
     email: 'Enter email', password: '', repeatPassword: '', balance: 0};
     this.registerOutputModel = {accessToken: '', refreshToken: '', roles: ''};              

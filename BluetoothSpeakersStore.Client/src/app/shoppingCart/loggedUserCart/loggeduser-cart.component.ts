@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AlertService } from "src/app/shared/alerts/alertService";
-import { UserService } from "src/app/users/user.service";
+import { SharedService } from "src/app/shared/shared.service";
 import { ShoppingCartService } from "../shoppingCart.service";
 import { IGetUserBalanceModel } from "../shoppingCartModels/getUserBalanceModel";
 import { IGetUserCartModel } from "../shoppingCartModels/getUserCartModel";
@@ -16,7 +16,7 @@ import { IInCartProductModel } from "../shoppingCartModels/inCartProductsModel";
 export class LoggedUserCartComponent implements OnInit, OnDestroy{
     constructor(private cartService: ShoppingCartService,
                 private alertService: AlertService,
-                private userService: UserService,
+                private sharedService: SharedService,
                 private router: Router) {
                 this.loggedUserCartModel = {cartId: 'Unavailable', creatorName: 'Unavailable', createdAt: 'Unavailable', totalSum: 0};
                 this.loggedUserInfoModel = {balance: ""};
@@ -149,7 +149,7 @@ export class LoggedUserCartComponent implements OnInit, OnDestroy{
             error: (err)=> this.alertService.errorAlert(err)
         })
     }
-
+    
     executeConfirmationDeleteLoggedUserCart() {
         this.alertService.confirmationAlertLoggedUserCartDelete();
     }
@@ -175,7 +175,7 @@ export class LoggedUserCartComponent implements OnInit, OnDestroy{
     }
 
     private executeGetLoggedUserBalance() {
-        this.loggedUserInfoSubscription = this.userService.getLoggedUser().subscribe( {
+        this.loggedUserInfoSubscription = this.sharedService.getLoggedUser().subscribe( {
             next: (userInfo) => this.loggedUserInfoModel = userInfo,
             error: (err) => this.alertService.errorAlert(err)
         })

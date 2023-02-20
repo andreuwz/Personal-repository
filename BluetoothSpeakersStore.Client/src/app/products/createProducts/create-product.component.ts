@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 import { AlertService } from "src/app/shared/alerts/alertService";
 import { ICreateProductModel } from "../productModels/createProductModel";
 
-import { ProductService } from "../products.service";
+import { ProductService } from "../product.service";
 
 @Component({
     selector: 'product-list',

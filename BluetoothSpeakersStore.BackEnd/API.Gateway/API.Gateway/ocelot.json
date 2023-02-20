@@ -1,0 +1,500 @@
+{
+  "Routes": [
+    // *** Identity API ***
+    //login
+    {
+      "UpstreamPathTemplate": "/User/Login",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/Login",
+      "DownstreamHttpMethod": "Post"
+    },
+    //login
+
+    //get, create users
+    {
+      "UpstreamPathTemplate": "/User",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "Administrator": "true"
+      }
+    },
+    //get, create users
+
+    //get, edit, delete user by id
+    {
+      "UpstreamPathTemplate": "/User/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/{id}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "Administrator": "true"
+      }
+    },
+
+    //get, edit, delete user by id
+
+    //assign user to admin role
+    {
+      "UpstreamPathTemplate": "/User/AssignAdminRole/ToUser/{id}",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/AssignAdminRole/ToUser/{id}",
+      "DownstreamHttpMethod": "Post",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "MasterAdmin": "true"
+      }
+    },
+    //assign user to admin role
+
+    //unassign user from admin role
+    {
+      "UpstreamPathTemplate": "/User/UnassignAdminRole/FromUser/{id}",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/UnassignAdminRole/FromUser/{id}",
+      "DownstreamHttpMethod": "Post",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "MasterAdmin": "true"
+      }
+    },
+    //unassign user from admin role
+
+    //register new user
+    {
+      "UpstreamPathTemplate": "/User/Register",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/Register",
+      "DownstreamHttpMethod": "Post"
+    },
+    //register new user
+
+    //edit,get logged user
+    {
+      "UpstreamPathTemplate": "/LoggedUser",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/LoggedUser",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      }
+    },
+    //edit,get logged user
+    // *** Identity API ***
+
+    // *** Catalogue API ***
+    // create product
+    {
+      "UpstreamPathTemplate": "/Product",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7253
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Product",
+      "DownstreamHtppMethod": "Post",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "Administrator": "true"
+      }
+    },
+    // create product
+
+    // get all products
+    {
+      "UpstreamPathTemplate": "/Product",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7253
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Product",
+      "DownstreamHtppMethod": "Post"
+    },
+    // get all products
+
+    // update, delete product by id
+    {
+      "UpstreamPathTemplate": "/Product/{id}",
+      "UpstreamHttpMethod": [ "Put", "Delete" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7253
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Product/{id}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "Administrator": "true"
+      }
+    },
+    // update, delete product by id
+    // get product by id
+    {
+      "UpstreamPathTemplate": "/Product/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7253
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Product/{id}",
+      "DownstreamHttpMethod": "Get"
+    },
+    // get product by id
+
+    //get products as admin
+    {
+      "UpstreamPathTemplate": "/Product/Admin",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7253
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Product/Admin",
+      "DownstreamHttpMethod": "Get",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "Administrator": "true"
+      }
+    },
+    //get products as admin
+
+    //get producy as admin by id
+    {
+      "UpstreamPathTemplate": "/Product/Admin/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7253
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Product/Admin/{id}",
+      "DownstreamHttpMethod": "Get",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "Administrator": "true"
+      }
+    },
+    //get producy as admin by id
+
+    //add product to cart
+    {
+      "UpstreamPathTemplate": "/Product/AddToCart/{productId}/Quantity/{quantity}",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7253
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Product/AddToCart/{productId}/Quantity/{quantity}",
+      "DownstreamHttpMethod": "Post",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      }
+    },
+    //add product to cart
+    // *** Catalogue API ***
+
+    // *** Cart API ***
+    //get products in cart as admin
+    {
+      "UpstreamPathTemplate": "/Cart/Admin/ProductsInCart/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7041
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Cart/Admin/ProductsInCart/{id}",
+      "DownstreamHttpMethod": "Get",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "Administrator": "true"
+      }
+    },
+    //get products in cart as admin
+
+    //get logged user products in cart
+    {
+      "UpstreamPathTemplate": "/Cart/LoggedUser/ProductsInCart",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7041
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Cart/LoggedUser/ProductsInCart",
+      "DownstreamHttpMethod": "Get",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      }
+    },
+    //get logged user products in cart
+
+    //delete, get user cart by id as admin
+    {
+      "UpstreamPathTemplate": "/Cart/Admin/{id}",
+      "UpstreamHttpMethod": [ "Delete", "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7041
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Cart/Admin/{id}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      },
+      "RouteClaimsRequirement": {
+        "Administrator": "true"
+      }
+    },
+    //delete, get user cart by id as admin
+
+    //delete, get logged user cart
+    {
+      "UpstreamPathTemplate": "/Cart/LoggedUser",
+      "UpstreamHttpMethod": [ "Delete", "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7041
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Cart/LoggedUser",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      }
+    },
+    //delete, get logged user cart
+
+    //logged user cart checkout
+    {
+      "UpstreamPathTemplate": "/Cart/LoggedUser/CartCheckout",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7041
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Cart/LoggedUser/CartCheckout",
+      "DownstreamHttpMethod": "Post",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      }
+    },
+    //logged user cart checkout
+
+    //logged user delete product in cart
+    {
+      "UpstreamPathTemplate": "/Cart/LoggedUser/ProductInCart/{id}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7041
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Cart/LoggedUser/ProductInCart/{id}",
+      "DownstreamHttpMethod": "Delete",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "Cart.API",
+          "Catalogue.API",
+          "Identity.API",
+          "offline_access"
+        ]
+      }
+    }
+    //logged user delete product in cart
+    // *** Cart API ***
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7024"
+  }
+}

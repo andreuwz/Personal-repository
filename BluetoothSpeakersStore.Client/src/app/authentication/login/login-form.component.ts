@@ -6,7 +6,7 @@ import { AlertService } from "../../shared/alerts/alertService";
 import { SessionService } from "../../shared/sessionInfo/session.service";
 import { LoginService } from "../login.service";
 import { LoginModel } from "./loginModel";
-import { EncryptionService } from "../encryption.service";
+import { EncryptionService } from "../../shared/encryption.service";
 import { ILoginOutputModel } from "./loginOuputModel";
 import { CookieService } from "ngx-cookie-service";
 
@@ -109,7 +109,7 @@ export class LoginFormComponent implements OnInit, OnDestroy{
         this.alertService.successLogoutAlert(),
         this.router.navigate(['/Products'])
     }
-
+    
     SetCookieAfterLogin(accessToken: string, refreshToken: string) {
         let authCookie = 'Bearer ' + accessToken;
         let refreshCookie = refreshToken;

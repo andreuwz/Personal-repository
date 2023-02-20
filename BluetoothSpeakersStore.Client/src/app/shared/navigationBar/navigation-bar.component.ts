@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
-import { EncryptionService } from "src/app/authentication/encryption.service";
+import { EncryptionService } from "src/app/shared/encryption.service";
 import { SessionService } from "../sessionInfo/session.service";
 
 @Component({

@@ -30,7 +30,7 @@
     <th>
       <img src="https://www.iconbunny.com/icons/media/catalog/product/6/4/640.5-admin-roles-icon-iconbunny.jpg">
     </th>
-    <th>
+    <th *ngIf="isLoggedUserMasterAdmin()">
       <img src="https://thumbs.dreamstime.com/b/three-persons-admin-icon-outline-three-persons-admin-vector-icon-color-flat-isolated-three-persons-admin-icon-color-outline-vector-233074232.jpg">
     </th>
     <th>
@@ -53,7 +53,7 @@
       <button class="btn danger" type="button" (click)="executeDeleteUser(user.id)">Delete</button>
     </td>
     <td>{{user.userRoles}}</td>
-    <td>
+    <td *ngIf="isLoggedUserMasterAdmin()">
       <button class="btn danger" type="button" *ngIf="!isUserInAdminRole(user.userRoles)" (click)="executeUserAdminRoleAssign(user.id)">Assign</button>
       <button class="btn btn-warning" type="button" *ngIf="isUserInAdminRole(user.userRoles)" (click)="executeUserAdminRoleUnassign(user.id)">Unassign</button>
     </td>

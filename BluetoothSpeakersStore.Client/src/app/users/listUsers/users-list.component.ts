@@ -4,6 +4,7 @@ import { AlertService } from "../../shared/alerts/alertService";
 import { UserService } from "../user.service";
 import { IGetUserModel } from "../userModels/getUserModel";
 import { Subscription } from "rxjs";
+import { SharedService } from "src/app/shared/shared.service";
 
 @Component({
     selector: 'user-list',
@@ -13,6 +14,7 @@ import { Subscription } from "rxjs";
 
 export class UserListComponent implements OnInit, OnDestroy{
     constructor(private userService: UserService,
+                private sharedSerice: SharedService,
                           private router: Router,
                private alertService: AlertService) {
             this.subscribeUserDeleteEvent();
@@ -56,6 +58,14 @@ export class UserListComponent implements OnInit, OnDestroy{
        if (this.userDeleteSubscription) {
         this.userDeleteSubscription.unsubscribe();
        }
+    }
+
+    isLoggedUserMasterAdmin() :boolean {
+        if (this.sharedSerice.isLoggedUserMasterAdmin()) {
+            return true;
+        }
+        
+        return false;
     }
     
     executeGetUserById(id: string) {
@@ -123,7 +133,7 @@ export class UserListComponent implements OnInit, OnDestroy{
     }
 
     executeGetUserIdForCartInfo(id: string) {
-        this.userService.userIdGetCartAlertEvent.next(id);
+        this.sharedSerice.userIdGetCartAlertEvent.next(id);
         this.router.navigate(['/UserCart']);
     }
 }

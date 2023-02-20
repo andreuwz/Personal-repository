@@ -7,32 +7,23 @@ import { IEditUserModel } from "./userModels/editUserModel";
 import { IGetUserModel } from "./userModels/getUserModel";
 import { IRegisterUserModel } from "./userModels/registerUserModel";
 
-@Injectable({
-    providedIn: 'root'
-})
-
+@Injectable()
 export class UserService {
     constructor(private httpClient: HttpClient,
                 private sessionService: SessionService) {
         this.editUserEvent = new BehaviorSubject<IGetUserModel>(this.sampleUserModel);
-        this.userIdGetCartAlertEvent = new BehaviorSubject<string>('');
     }
-    private getAllUsersUrl = 'https://localhost:7193/User';
-    private deleteUserUrl = 'https://localhost:7193/User';
-    private editUserUrl = 'https://localhost:7193/User';
-    private registerUserUrl = 'https://localhost:7193/User/Register';
-    private assignUserAdminUrl = 'https://localhost:7193/User/AssignAdminRole/ToUser';
-    private unassignUserAdminUrl = 'https://localhost:7193/User/UnassignAdminRole/FromUser';
-    private editLoggedUserUrl = 'https://localhost:7193/LoggedUser';
-    private getLoggedUserUrl = 'https://localhost:7193/LoggedUser';
+    private getAllUsersUrl = 'https://localhost:7024/User';
+    private deleteUserUrl = 'https://localhost:7024/User';
+    private editUserUrl = 'https://localhost:7024/User';
+    private registerUserUrl = 'https://localhost:7024/User/Register';
+    private assignUserAdminUrl = 'https://localhost:7024/User/AssignAdminRole/ToUser';
+    private unassignUserAdminUrl = 'https://localhost:7024/User/UnassignAdminRole/FromUser';
+    private editLoggedUserUrl = 'https://localhost:7024/LoggedUser';
 
     editUserEvent: BehaviorSubject<IGetUserModel>;
     sampleUserModel: IGetUserModel
-    userIdGetCartAlertEvent: BehaviorSubject<string>;
-
-    getUserIdGetCartEvent() :Observable<string> {
-        return this.userIdGetCartAlertEvent.asObservable();
-    }
+    
 
     getEditUserInfoEvent(): Observable<IGetUserModel> {
         return this.editUserEvent.asObservable();
@@ -116,16 +107,6 @@ export class UserService {
         this.sessionService.isSecurityNeeded = true;
 
         return this.httpClient.put(this.editLoggedUserUrl, loggedUserModel)
-        .pipe(
-            tap(data => console.log('All:',JSON.stringify(data))),
-            catchError(this.handleError)
-        );
-    }
-
-    getLoggedUser(): Observable<any> {
-        this.sessionService.isSecurityNeeded = true;
-        
-        return this.httpClient.get(this.getLoggedUserUrl)
         .pipe(
             tap(data => console.log('All:',JSON.stringify(data))),
             catchError(this.handleError)

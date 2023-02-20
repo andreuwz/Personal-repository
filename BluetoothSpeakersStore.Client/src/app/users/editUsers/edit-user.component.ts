@@ -43,7 +43,7 @@ export class EditUserComponent implements OnInit, OnDestroy{
             error: (err) => this.alertService.errorAlert(err)
         });
     }
-
+    
     ngOnDestroy(): void {
         if (this.userEditConfirmationSubscription) {
             this.userEditConfirmationSubscription.unsubscribe();

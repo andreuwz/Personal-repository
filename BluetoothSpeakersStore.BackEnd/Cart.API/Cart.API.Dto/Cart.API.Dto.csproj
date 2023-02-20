@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cart.API.Common\Cart.API.Common.csproj" />
+    <ProjectReference Include="..\Cart.API.Domain\Cart.API.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

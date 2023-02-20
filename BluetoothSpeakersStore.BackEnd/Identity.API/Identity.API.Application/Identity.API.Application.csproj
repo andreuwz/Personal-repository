@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Collection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Identity.API.Common\Identity.API.Common.csproj" />
+    <ProjectReference Include="..\Identity.API.Dto\Identity.API.Dto.csproj" />
+    <ProjectReference Include="..\Identity.API.Persistence\Identity.API.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

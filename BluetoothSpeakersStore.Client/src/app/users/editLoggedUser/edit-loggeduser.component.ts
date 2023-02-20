@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AlertService } from "src/app/shared/alerts/alertService";
 import { SessionService } from "src/app/shared/sessionInfo/session.service";
+import { SharedService } from "src/app/shared/shared.service";
 import { UserService } from "../user.service";
 import { IEditLoggedUserModel } from "../userModels/editLoggedUserModel";
 import { IGetUserModel } from "../userModels/getUserModel";
@@ -18,6 +19,7 @@ export class EditLoggedUserComponent implements OnInit, OnDestroy{
     constructor(private formBuilder: FormBuilder,
                 private userService: UserService,
                 private alertService: AlertService,
+                private sharedService: SharedService,
                 private router: Router,
                 private sessionService: SessionService) {
         this.loggedUserModel= {userName: 'Edit your username', firstname: 'Edit your first name', 
@@ -36,7 +38,7 @@ export class EditLoggedUserComponent implements OnInit, OnDestroy{
     loggedUserModel: IEditLoggedUserModel
 
     private subscribeGetLoggedUserInfo() {
-        this.getLoggedUserSubscription = this.userService.getLoggedUser().subscribe({
+        this.getLoggedUserSubscription = this.sharedService.getLoggedUser().subscribe({
             next: (loggedUser) => {
                 this.patchFormValues(loggedUser);
             }

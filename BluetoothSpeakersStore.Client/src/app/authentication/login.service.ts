@@ -4,16 +4,13 @@ import { catchError, Observable, tap, throwError } from "rxjs";
 import { SessionService } from "../shared/sessionInfo/session.service";
 import { LoginModel } from "./login/loginModel";
 
-@Injectable( {
-    providedIn: 'root'
-})
-
+@Injectable()
 export class LoginService {
 
     constructor(private httpClient: HttpClient,
                 private sessionService: SessionService) {}
 
-    private logInUrl = 'https://localhost:7193/User/Login';
+    private logInUrl = 'https://localhost:7024/User/Login';
 
     logIn(loginModel: LoginModel): Observable<any> {
         this.sessionService.isSecurityNeeded = false;

@@ -3,15 +3,11 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { SessionService } from "../shared/sessionInfo/session.service";
 
-@Injectable ({
-    providedIn: 'root'
-})
-
-export class securityHttpInterceptor implements HttpInterceptor{
+@Injectable ()
+export class SecurityHttpInterceptor implements HttpInterceptor{
     constructor(private sessionService: SessionService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
 
         if (this.sessionService.isSecurityNeeded == true) {
             this.sessionService.extractCookieData();
